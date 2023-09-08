@@ -7,7 +7,7 @@ curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($curl_handle, CURLOPT_USERAGENT, 'Your application name');
 $query = curl_exec($curl_handle);
 curl_close($curl_handle);
-print_r($query);
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -25,6 +25,6 @@ print_r($query);
 			border: 2px solid #000;			
 		}
 	</style> 
-	<iframe src="<?php $query?>.https://gablesfurniture.com/"></iframe>
+	<iframe src="<?php echo $query?>https://gablesfurniture.com/"></iframe>
 </body>
 </html>
