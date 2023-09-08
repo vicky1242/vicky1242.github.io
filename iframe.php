@@ -8,5 +8,5 @@ curl_setopt($curl_handle, CURLOPT_USERAGENT, 'Your application name');
 $query = curl_exec($curl_handle);
 curl_close($curl_handle);
 print_r($query);
-exit();
+
 ?>
