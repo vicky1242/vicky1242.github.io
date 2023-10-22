@@ -72,7 +72,7 @@ var camera, scene, renderer;
 
 				window.addEventListener( 'resize', onWindowResize, false );
 
-				let darkMatter = document.getElementById("darkMatter");
+				let darkMatter = document.getElementById("container");
 				darkMatter.addEventListener('click', ()=> {
 					console.log("click");
 					window.location.href = "video.html";
