@@ -73,9 +73,11 @@ var camera, scene, renderer;
 				window.addEventListener( 'resize', onWindowResize, false );
 
 				let darkMatter = document.getElementById("container");
-				darkMatter.addEventListener('click', ()=> {
-					console.log("click");
-					window.location.href = "video.html";
+				darkMatter.addEventListener('click', (event)=> {
+					 if (event.target === darkMatter || event.target.tagName === 'CANVAS') {
+        event.stopPropagation();
+        window.location.href = "video.html";
+    }
 				})
 
 				textAnimation();

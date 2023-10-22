@@ -64,7 +64,11 @@ function setup() {
         startWallAnimation();
     }
     else startVideoParticles();
-
+    checkScreenSize();
+    
+    let darkMatter = document.getElementById("darkMatter");
+    document.getElementById("wrapper").removeEventListener("click", brakeWall, false);
+    webgl.tl.play();
     animate();
 
 }
@@ -252,6 +256,7 @@ function callTOaction()  {
 
 function brakeWall(e) {
     if( e.target.classList.contains("btn") ) return;
+
     checkScreenSize();
     let darkMatter = document.getElementById("darkMatter");
     darkMatter.remove();

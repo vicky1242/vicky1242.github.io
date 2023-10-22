@@ -23,7 +23,9 @@
     margin: auto;
     z-index: 1;
   }
-  
+  #darkMatter {
+    visibility: hidden;
+  }
   
   #wrapper {
     position: relative;
