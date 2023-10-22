@@ -86,8 +86,8 @@ iframe.product-frame {
   }
 
   #container canvas {
-    width: 1342px!important;
-    height: 1300px!important;
+    width: 100%!important;
+    height: 210%!important;
   }
   
   @media (max-width: 768px) {
