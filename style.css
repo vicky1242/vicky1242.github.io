@@ -3,10 +3,9 @@ html, body {margin:0; height: 100%;}
 
 header {
     padding: 20px;
-        text-align: center;
-       
+        text-align: center;       
         position: absolute;
-        left: 34%;
+        left: 41%;
         color: #ffff;
 }
 
@@ -103,6 +102,6 @@ iframe.product-frame {
       margin:10px 10px 10px 10px;
     }
     header {
-      left: 16%;            
+      left: 30%;            
     }
   }
