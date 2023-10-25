@@ -2161,10 +2161,7 @@ responsive
   .main-banner ul.categories li a {
     color: transparent;
   }
-  .header-area .main-nav a.logo {
-    background-image: url(../images/black-logo.png);
-    float: left;
-  }
+
   .header-area .logo {
     margin-left: 0px;
   }
