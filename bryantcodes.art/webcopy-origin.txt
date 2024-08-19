@@ -22,44 +22,44 @@ Uri: https://bryantcodes.art/images/favicon.png
 File Name: C:\bryantcodes.art\images\favicon.png
 Content Type: image/png
 
-Uri: https://bryantcodes.art/_next/static/chunks/framework-3583eef75b58b7b2.js
-File Name: C:\bryantcodes.art\_next\static\chunks\framework-3583eef75b58b7b2.js
+Uri: https://bryantcodes.art/next/static/chunks/framework-3583eef75b58b7b2.js
+File Name: C:\bryantcodes.art\next\static\chunks\framework-3583eef75b58b7b2.js
 Content Type: application/javascript
 
-Uri: https://bryantcodes.art/_next/static/chunks/main-49ca9c65a270f3df.js
-File Name: C:\bryantcodes.art\_next\static\chunks\main-49ca9c65a270f3df.js
+Uri: https://bryantcodes.art/next/static/chunks/main-49ca9c65a270f3df.js
+File Name: C:\bryantcodes.art\next\static\chunks\main-49ca9c65a270f3df.js
 Content Type: application/javascript
 
-Uri: https://bryantcodes.art/_next/static/chunks/pages/index-7b557b88bcb3d33f.js
-File Name: C:\bryantcodes.art\_next\static\chunks\pages\index-7b557b88bcb3d33f.js
+Uri: https://bryantcodes.art/next/static/chunks/pages/index-7b557b88bcb3d33f.js
+File Name: C:\bryantcodes.art\next\static\chunks\pages\index-7b557b88bcb3d33f.js
 Content Type: application/javascript
 
-Uri: https://bryantcodes.art/_next/static/chunks/pages/_app-f4aa1d08e0cc2691.js
-File Name: C:\bryantcodes.art\_next\static\chunks\pages\_app-f4aa1d08e0cc2691.js
+Uri: https://bryantcodes.art/next/static/chunks/pages/_app-f4aa1d08e0cc2691.js
+File Name: C:\bryantcodes.art\next\static\chunks\pages\_app-f4aa1d08e0cc2691.js
 Content Type: application/javascript
 
-Uri: https://bryantcodes.art/_next/static/chunks/polyfills-5cd94c89d3acac5f.js
-File Name: C:\bryantcodes.art\_next\static\chunks\polyfills-5cd94c89d3acac5f.js
+Uri: https://bryantcodes.art/next/static/chunks/polyfills-5cd94c89d3acac5f.js
+File Name: C:\bryantcodes.art\next\static\chunks\polyfills-5cd94c89d3acac5f.js
 Content Type: application/javascript
 
-Uri: https://bryantcodes.art/_next/static/chunks/webpack-37e82c3355fb38a9.js
-File Name: C:\bryantcodes.art\_next\static\chunks\webpack-37e82c3355fb38a9.js
+Uri: https://bryantcodes.art/next/static/chunks/webpack-37e82c3355fb38a9.js
+File Name: C:\bryantcodes.art\next\static\chunks\webpack-37e82c3355fb38a9.js
 Content Type: application/javascript
 
-Uri: https://bryantcodes.art/_next/static/css/76a42089abc12ddd.css
-File Name: C:\bryantcodes.art\_next\static\css\76a42089abc12ddd.css
+Uri: https://bryantcodes.art/next/static/css/76a42089abc12ddd.css
+File Name: C:\bryantcodes.art\next\static\css\76a42089abc12ddd.css
 Content Type: text/css
 
-Uri: https://bryantcodes.art/_next/static/Yodc9TpIXXFeD3s7v0p9u/_buildManifest.js
-File Name: C:\bryantcodes.art\_next\static\Yodc9TpIXXFeD3s7v0p9u\_buildManifest.js
+Uri: https://bryantcodes.art/next/static/Yodc9TpIXXFeD3s7v0p9u/_buildManifest.js
+File Name: C:\bryantcodes.art\next\static\Yodc9TpIXXFeD3s7v0p9u\_buildManifest.js
 Content Type: application/javascript
 
-Uri: https://bryantcodes.art/_next/static/Yodc9TpIXXFeD3s7v0p9u/_middlewareManifest.js
-File Name: C:\bryantcodes.art\_next\static\Yodc9TpIXXFeD3s7v0p9u\_middlewareManifest.js
+Uri: https://bryantcodes.art/next/static/Yodc9TpIXXFeD3s7v0p9u/_middlewareManifest.js
+File Name: C:\bryantcodes.art\next\static\Yodc9TpIXXFeD3s7v0p9u\_middlewareManifest.js
 Content Type: application/javascript
 
-Uri: https://bryantcodes.art/_next/static/Yodc9TpIXXFeD3s7v0p9u/_ssgManifest.js
-File Name: C:\bryantcodes.art\_next\static\Yodc9TpIXXFeD3s7v0p9u\_ssgManifest.js
+Uri: https://bryantcodes.art/next/static/Yodc9TpIXXFeD3s7v0p9u/_ssgManifest.js
+File Name: C:\bryantcodes.art\next\static\Yodc9TpIXXFeD3s7v0p9u\_ssgManifest.js
 Content Type: application/javascript
 
 Uri: https://cdn.sanity.io/images/0ttnaq4a/production/c8b44486a32367772252cd727f70f2f592f796d3-1280x1003.png?w=1000

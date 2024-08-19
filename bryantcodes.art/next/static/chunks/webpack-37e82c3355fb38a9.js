@@ -113,7 +113,7 @@
             }), Object.defineProperty(e, "__esModule", {
                 value: !0
             })
-        }, n.p = "/_next/",
+        }, n.p = "/next/",
         function() {
             var e = {
                 272: 0
