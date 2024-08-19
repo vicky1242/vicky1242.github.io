@@ -50,16 +50,16 @@ Uri: https://bryantcodes.art/next/static/css/76a42089abc12ddd.css
 File Name: C:\bryantcodes.art\next\static\css\76a42089abc12ddd.css
 Content Type: text/css
 
-Uri: https://bryantcodes.art/next/static/Yodc9TpIXXFeD3s7v0p9u/_buildManifest.js
-File Name: C:\bryantcodes.art\next\static\Yodc9TpIXXFeD3s7v0p9u\_buildManifest.js
+Uri: https://bryantcodes.art/next/static/Yodc9TpIXXFeD3s7v0p9u/buildManifest.js
+File Name: C:\bryantcodes.art\next\static\Yodc9TpIXXFeD3s7v0p9u\buildManifest.js
 Content Type: application/javascript
 
-Uri: https://bryantcodes.art/next/static/Yodc9TpIXXFeD3s7v0p9u/_middlewareManifest.js
-File Name: C:\bryantcodes.art\next\static\Yodc9TpIXXFeD3s7v0p9u\_middlewareManifest.js
+Uri: https://bryantcodes.art/next/static/Yodc9TpIXXFeD3s7v0p9u/middlewareManifest.js
+File Name: C:\bryantcodes.art\next\static\Yodc9TpIXXFeD3s7v0p9u\middlewareManifest.js
 Content Type: application/javascript
 
-Uri: https://bryantcodes.art/next/static/Yodc9TpIXXFeD3s7v0p9u/_ssgManifest.js
-File Name: C:\bryantcodes.art\next\static\Yodc9TpIXXFeD3s7v0p9u\_ssgManifest.js
+Uri: https://bryantcodes.art/next/static/Yodc9TpIXXFeD3s7v0p9u/ssgManifest.js
+File Name: C:\bryantcodes.art\next\static\Yodc9TpIXXFeD3s7v0p9u\ssgManifest.js
 Content Type: application/javascript
 
 Uri: https://cdn.sanity.io/images/0ttnaq4a/production/c8b44486a32367772252cd727f70f2f592f796d3-1280x1003.png?w=1000
