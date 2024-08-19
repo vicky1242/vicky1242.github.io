@@ -261,36 +261,7 @@
                     }]), r
                 }(f.default.Component);
 
-            function X() {
-                return X = L(n.mark((function e() {
-                    var t, a, i, u = arguments;
-                    return n.wrap((function(e) {
-                        for (;;) switch (e.prev = e.next) {
-                            case 0:
-                                return u.length > 0 && void 0 !== u[0] ? u[0] : {}, I = JSON.parse(document.getElementById("nextdata").textContent), window.nextdata = I, G = I.defaultLocale, t = I.assetPrefix || "", r.p = "".concat(t, "/next/"), g.setConfig({
-                                    serverRuntimeConfig: {},
-                                    publicRuntimeConfig: I.runtimeConfig || {}
-                                }), D = b.getURL(), v.hasBasePath(D) && (D = v.delBasePath(D)), I.scriptLoader && (a = r(7829), (0, a.initScriptLoader)(I.scriptLoader)), q = new x.default(I.buildId, t), i = function(e) {
-                                    var t = o(e, 2),
-                                        r = t[0],
-                                        n = t[1];
-                                    return q.routeLoader.onEntrypoint(r, n)
-                                }, window.next_P && window.next_P.map((function(e) {
-                                    return setTimeout((function() {
-                                        return i(e)
-                                    }), 0)
-                                })), window.next_P = [], window.next_P.push = i, (W = w.default()).getIsSsr = function() {
-                                    return T.isSsr
-                                }, F = document.getElementById("next"), e.abrupt("return", {
-                                    assetPrefix: t
-                                });
-                            case 21:
-                            case "end":
-                                return e.stop()
-                        }
-                    }), e)
-                }))), X.apply(this, arguments)
-            }
+ 
 
             function Y() {
                 return (Y = L(n.mark((function e(r) {
