@@ -34,8 +34,8 @@ Uri: https://bryantcodes.art/next/static/chunks/pages/index-7b557b88bcb3d33f.js
 File Name: C:\bryantcodes.art\next\static\chunks\pages\index-7b557b88bcb3d33f.js
 Content Type: application/javascript
 
-Uri: https://bryantcodes.art/next/static/chunks/pages/_app-f4aa1d08e0cc2691.js
-File Name: C:\bryantcodes.art\next\static\chunks\pages\_app-f4aa1d08e0cc2691.js
+Uri: https://bryantcodes.art/next/static/chunks/pages/app-f4aa1d08e0cc2691.js
+File Name: C:\bryantcodes.art\next\static\chunks\pages\app-f4aa1d08e0cc2691.js
 Content Type: application/javascript
 
 Uri: https://bryantcodes.art/next/static/chunks/polyfills-5cd94c89d3acac5f.js
