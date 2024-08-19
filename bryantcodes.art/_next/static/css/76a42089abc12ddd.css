@@ -3,11 +3,8 @@
     src: url(../../../fonts/bryant/bryantBold.woff2) format("woff2");
     font-weight: 400;
     font-style: normal;
-  }
-  
-  /*
-  ! tailwindcss v3.1.7 | MIT License | https://tailwindcss.com
-  */
+  } 
+
   *,
   :after,
   :before {
