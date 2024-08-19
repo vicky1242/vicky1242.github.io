@@ -556,9 +556,7 @@
   .grid {
     display: grid;
   }
-  .hidden {
-    display: none;
-  }
+
   .aspect-\[9\/8\]:before {
     float: left;
     padding-top: 88.88888888888889%;
