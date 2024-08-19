@@ -1,0 +1,88 @@
+Uri: https://bryantcodes.art/
+File Name: C:\bryantcodes.art\index.htm
+Content Type: text/html
+
+Uri: https://bryantcodes.art/cursor/paint.svg
+File Name: C:\bryantcodes.art\cursor\paint.svg
+Content Type: image/svg+xml
+
+Uri: https://bryantcodes.art/cursor/terminal.svg
+File Name: C:\bryantcodes.art\cursor\terminal.svg
+Content Type: image/svg+xml
+
+Uri: https://bryantcodes.art/fonts/bryant/bryantBold.woff
+File Name: C:\bryantcodes.art\fonts\bryant\bryantBold.woff
+Content Type: font/woff
+
+Uri: https://bryantcodes.art/fonts/bryant/bryantBold.woff2
+File Name: C:\bryantcodes.art\fonts\bryant\bryantBold.woff2
+Content Type: font/woff2
+
+Uri: https://bryantcodes.art/images/favicon.png
+File Name: C:\bryantcodes.art\images\favicon.png
+Content Type: image/png
+
+Uri: https://bryantcodes.art/_next/static/chunks/framework-3583eef75b58b7b2.js
+File Name: C:\bryantcodes.art\_next\static\chunks\framework-3583eef75b58b7b2.js
+Content Type: application/javascript
+
+Uri: https://bryantcodes.art/_next/static/chunks/main-49ca9c65a270f3df.js
+File Name: C:\bryantcodes.art\_next\static\chunks\main-49ca9c65a270f3df.js
+Content Type: application/javascript
+
+Uri: https://bryantcodes.art/_next/static/chunks/pages/index-7b557b88bcb3d33f.js
+File Name: C:\bryantcodes.art\_next\static\chunks\pages\index-7b557b88bcb3d33f.js
+Content Type: application/javascript
+
+Uri: https://bryantcodes.art/_next/static/chunks/pages/_app-f4aa1d08e0cc2691.js
+File Name: C:\bryantcodes.art\_next\static\chunks\pages\_app-f4aa1d08e0cc2691.js
+Content Type: application/javascript
+
+Uri: https://bryantcodes.art/_next/static/chunks/polyfills-5cd94c89d3acac5f.js
+File Name: C:\bryantcodes.art\_next\static\chunks\polyfills-5cd94c89d3acac5f.js
+Content Type: application/javascript
+
+Uri: https://bryantcodes.art/_next/static/chunks/webpack-37e82c3355fb38a9.js
+File Name: C:\bryantcodes.art\_next\static\chunks\webpack-37e82c3355fb38a9.js
+Content Type: application/javascript
+
+Uri: https://bryantcodes.art/_next/static/css/76a42089abc12ddd.css
+File Name: C:\bryantcodes.art\_next\static\css\76a42089abc12ddd.css
+Content Type: text/css
+
+Uri: https://bryantcodes.art/_next/static/Yodc9TpIXXFeD3s7v0p9u/_buildManifest.js
+File Name: C:\bryantcodes.art\_next\static\Yodc9TpIXXFeD3s7v0p9u\_buildManifest.js
+Content Type: application/javascript
+
+Uri: https://bryantcodes.art/_next/static/Yodc9TpIXXFeD3s7v0p9u/_middlewareManifest.js
+File Name: C:\bryantcodes.art\_next\static\Yodc9TpIXXFeD3s7v0p9u\_middlewareManifest.js
+Content Type: application/javascript
+
+Uri: https://bryantcodes.art/_next/static/Yodc9TpIXXFeD3s7v0p9u/_ssgManifest.js
+File Name: C:\bryantcodes.art\_next\static\Yodc9TpIXXFeD3s7v0p9u\_ssgManifest.js
+Content Type: application/javascript
+
+Uri: https://cdn.sanity.io/images/0ttnaq4a/production/c8b44486a32367772252cd727f70f2f592f796d3-1280x1003.png?w=1000
+File Name: C:\bryantcodes.art\images\0ttnaq4a\production\c8b44486a32367772252cd727f70f2f592f796d3-1280x1003.png
+Content Type: image/png
+
+Uri: https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100;400;700&family=Roboto:wght@100&display=swap
+File Name: C:\bryantcodes.art\css2
+Content Type: text/css
+
+Uri: https://fonts.gstatic.com/s/roboto/v32/KFOkCnqEu92Fr1MmgWxP.ttf
+File Name: C:\bryantcodes.art\s\roboto\v32\KFOkCnqEu92Fr1MmgWxP.ttf
+Content Type: font/ttf
+
+Uri: https://fonts.gstatic.com/s/robotomono/v23/L0xuDF4xlVMF-BfR8bXMIhJHg45mwgGEFl0_3vqPQw.ttf
+File Name: C:\bryantcodes.art\s\robotomono\v23\L0xuDF4xlVMF-BfR8bXMIhJHg45mwgGEFl0_3vqPQw.ttf
+Content Type: font/ttf
+
+Uri: https://fonts.gstatic.com/s/robotomono/v23/L0xuDF4xlVMF-BfR8bXMIhJHg45mwgGEFl0_3vuPQw.ttf
+File Name: C:\bryantcodes.art\s\robotomono\v23\L0xuDF4xlVMF-BfR8bXMIhJHg45mwgGEFl0_3vuPQw.ttf
+Content Type: font/ttf
+
+Uri: https://fonts.gstatic.com/s/robotomono/v23/L0xuDF4xlVMF-BfR8bXMIhJHg45mwgGEFl0_Of2PQw.ttf
+File Name: C:\bryantcodes.art\s\robotomono\v23\L0xuDF4xlVMF-BfR8bXMIhJHg45mwgGEFl0_Of2PQw.ttf
+Content Type: font/ttf
+
