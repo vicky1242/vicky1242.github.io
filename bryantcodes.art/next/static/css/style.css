@@ -1330,7 +1330,9 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-
+  body::-webkit-scrollbar {
+    display: none;
+  }
   body {
     height: calc(100 * var(--vh));
   }
