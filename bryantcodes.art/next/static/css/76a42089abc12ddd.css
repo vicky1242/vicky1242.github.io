@@ -4,20 +4,8 @@
     font-weight: 400;
     font-style: normal;
   }
-  
-  /*
-  ! tailwindcss v3.1.7 | MIT License | https://tailwindcss.com
-  */
-  *,
-  :after,
-  :before {
-    box-sizing: border-box;
-    border: 0 solid;
-  }
-  :after,
-  :before {
-    --tw-content: "";
-  }
+
+
   html {
     line-height: 1.5;
     -webkit-text-size-adjust: 100%;
