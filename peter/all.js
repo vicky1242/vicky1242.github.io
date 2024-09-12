@@ -236,7 +236,7 @@ var _0x6599 = [
   "Poznámka",
   "Zdieľaj",
   "Use\x20arrows\x20\x20to\x20move\x20through\x20the\x20map.\x20If\x20you\x20get\x20lost,\x20use\x20MAP\x20or\x20MENU",
-  "Hi,\x20my\x20name\x20is\x20Adriano\x20Oravec",
+  "Hi,\x20my\x20name\x20is\x20Adriano",
   "I\x20am\x20a\x20front-end,\x20Javascript\x20and\x20Angular\x20developer",
   "Welcome\x20to\x20my\x20portfolio\x20page!",
   "Look\x20around\x20and\x20if\x20you\x20get\x20lost,\x20use\x20MAP\x20or\x20MENU",
