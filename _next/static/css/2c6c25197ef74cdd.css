@@ -12,3 +12,6 @@
 #recent-shifts {
   display: none;
 }
+#recent-shifts:parent {
+  border: none;
+}
