@@ -24,6 +24,6 @@
 .border-solid:has(#staking-stats) {
   border: none !important;
 }
-#integrations button{
+#integrations h2 a{
   display: none;
 }
