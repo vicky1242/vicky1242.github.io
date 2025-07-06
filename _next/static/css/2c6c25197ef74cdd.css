@@ -6,6 +6,6 @@
  
   display: none!important;
 }
-#profile-link {
+.tp-widget-wrapper a {
   display: none!important;
 }
