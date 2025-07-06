@@ -2,3 +2,7 @@
 .btn-hide {
     display: none;
 }
+.new-cls *:not(:first-of-type):not(a:first-of-type) {
+  /* Yahan aap apni styling lagayein */
+  display: none;
+}
