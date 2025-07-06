@@ -4,5 +4,5 @@
 }
 .new-cls > *:not(:first-child) {
  
-  display: none;
+  display: none!important;
 }
