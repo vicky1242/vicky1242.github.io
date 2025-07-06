@@ -18,6 +18,6 @@
 .border-solid:has(#recent-shifts) {
   border: none !important;
 }
-.border-solid:has(#integrations) {
+.border-solid:has(#staking-stats) {
   border: none !important;
 }
