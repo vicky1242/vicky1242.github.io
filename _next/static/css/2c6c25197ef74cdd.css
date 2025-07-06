@@ -15,3 +15,6 @@
 .heder-hide {
   display: none;
 }
+.no-brdr:has(#recent-shifts) {
+  border: none !important;
+}
