@@ -24,20 +24,20 @@
 <script>
   function waitForElement(selector, callback) {
     const observer = new MutationObserver(() => {
-      const element = document.querySelector(selector);
-      if (element) {
+      const el = document.querySelector(selector);
+      if (el) {
         observer.disconnect();
-        callback(element);
+        callback(el);
       }
     });
-
     observer.observe(document.body, { childList: true, subtree: true });
   }
 
   waitForElement('#recent-shifts', function (recentShifts) {
     const wrapper = recentShifts.parentElement;
     if (wrapper) {
-      wrapper.classList.add('no-border-wrapper');
+      wrapper.classList.add('remove-border-for-recent-shifts');
     }
   });
 </script>
+
