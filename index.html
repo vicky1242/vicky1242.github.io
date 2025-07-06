@@ -22,22 +22,18 @@
 <!-- Mirrored from sideshift.ai/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 04 Jul 2025 22:34:55 GMT -->
 </html>
 <script>
-  function waitForElement(selector, callback) {
-    const observer = new MutationObserver(() => {
-      const el = document.querySelector(selector);
-      if (el) {
-        observer.disconnect();
-        callback(el);
+  document.addEventListener("DOMContentLoaded", function () {
+    const recentShifts = document.getElementById("recent-shifts");
+    if (recentShifts) {
+      const outerDiv = recentShifts.closest("div");
+      if (outerDiv) {
+        const topWrapper = outerDiv.closest("div");
+        if (topWrapper) {
+          topWrapper.classList.add("remove-border-wrapper");
+        }
       }
-    });
-    observer.observe(document.body, { childList: true, subtree: true });
-  }
-
-  waitForElement('#recent-shifts', function (recentShifts) {
-    const wrapper = recentShifts.parentElement;
-    if (wrapper) {
-      wrapper.classList.add('remove-border-for-recent-shifts');
     }
   });
 </script>
+
 
