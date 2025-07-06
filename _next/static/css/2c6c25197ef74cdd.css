@@ -12,6 +12,6 @@
 #recent-shifts {
   display: none;
 }
-.border-solid:has(> #recent-shifts) {
+.no-border-wrapper > #recent-shifts {
   border: none !important;
 }
