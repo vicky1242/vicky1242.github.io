@@ -2,7 +2,7 @@
 .btn-hide {
     display: none;
 }
-.new-cls > *:not(:first-child) {
+.new-cls {
  
   display: none!important;
 }
