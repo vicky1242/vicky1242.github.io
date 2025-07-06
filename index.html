@@ -22,13 +22,15 @@
 <!-- Mirrored from sideshift.ai/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 04 Jul 2025 22:34:55 GMT -->
 </html>
 <script>
-  
-  const recentShifts = document.querySelector('#recent-shifts');
-const outerNoBrdr = recentShifts?.closest('.no-brdr');
+  document.addEventListener('DOMContentLoaded', function () {
+    alert('hi');
+    const recentShifts = document.querySelector('#recent-shifts');
+    const outerNoBrdr = recentShifts?.closest('.no-brdr');
 
-if (outerNoBrdr) {
-  alert('sdasdasd');
-  outerNoBrdr.classList.remove('md:border', 'border-smoke', 'dark:border-darker-gray');
-}
-
+    if (outerNoBrdr) {
+      alert('second alert');
+      outerNoBrdr.classList.remove('md:border', 'border-smoke', 'dark:border-darker-gray');
+    }
+  });
 </script>
+
