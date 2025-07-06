@@ -9,3 +9,6 @@
 .trust-remov {
   display: none!important;
 }
+#recent-shifts {
+  display: none;
+}
