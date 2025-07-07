@@ -23,27 +23,20 @@
 </html>
 <script>
   const observer = new MutationObserver(() => {
-    const allOptions = [...document.querySelectorAll('*')];
+    const listItems = document.querySelectorAll("div[class*='items-center']");
 
-    allOptions.forEach(el => {
-      if (el.textContent.trim().toUpperCase() === 'ALGO' || el.textContent.includes('Algorand')) {
-        let target = el.closest('div');
-
-        // Try going up until a valid display item is found
-        while (target && target.innerText && !target.innerText.includes('ALGO')) {
-          target = target.parentElement;
-        }
-
-        if (target) {
-          console.log('Hiding:', target);
-          target.style.display = 'none';
-        }
+    listItems.forEach(el => {
+      const text = el.textContent.trim().toUpperCase();
+      if (text.includes('ALGO') || text.includes('ALGORAND')) {
+        console.log('Hiding ALGO:', el);
+        el.style.display = 'none';
       }
     });
   });
 
   observer.observe(document.body, { childList: true, subtree: true });
 </script>
+
 
 
 
