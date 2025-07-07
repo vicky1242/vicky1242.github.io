@@ -34,5 +34,5 @@
   display: none!important;
 }
 #--tab-selector-option-fixed{
-  display: none;
+  display: none!important;
 }
