@@ -24,6 +24,7 @@
 <script>
   // Wait for coins to load, then remove ALGO
   const observer = new MutationObserver(() => {
+    alert('hello');
     const algoOption = [...document.querySelectorAll('*')].find(el =>
       el.textContent.trim().toUpperCase() === 'ALGO' || el.textContent.includes('Algorand')
     );
