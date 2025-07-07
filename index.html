@@ -44,24 +44,6 @@
 
   observer.observe(document.body, { childList: true, subtree: true });
 </script>
-<script>
-  const hideButton = () => {
-    const buttons = document.querySelectorAll("button");
-    buttons.forEach(button => {
-      if (button.textContent.trim().toLowerCase() === "send from wallet") {
-        button.style.display = "none";
-      }
-    });
-  };
-
-  // Run every 500ms until found
-  const intervalId = setInterval(() => {
-    hideButton();
-  }, 500);
-
-  // Optional: Stop after 10 seconds
-  setTimeout(() => clearInterval(intervalId), 10000);
-</script>
 
 
 
