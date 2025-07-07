@@ -30,6 +30,6 @@
 .social-hide {
   display: none;
 }
-.intercom-lightweight-app-launcher-icon {
-  display: none;
+#intercom-container-body {
+  display: none!important;
 }
