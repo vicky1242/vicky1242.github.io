@@ -33,3 +33,6 @@
 .intercom-lightweight-app-launcher {
   display: none!important;
 }
+#--tab-selector-option-fixed{
+  display: none;
+}
