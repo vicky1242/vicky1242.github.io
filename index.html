@@ -44,23 +44,7 @@
 
   observer.observe(document.body, { childList: true, subtree: true });
 </script>
-<script>
-  function hideSendFromWallet() {
-    const buttons = document.querySelectorAll("button");
-    buttons.forEach(btn => {
-      if (btn.textContent.trim() === "Send From Wallet") {
-        btn.style.display = "none";
-      }
-    });
-  }
 
-  // Call on load
-  hideSendFromWallet();
-
-  // Also observe DOM changes
-  const observer = new MutationObserver(hideSendFromWallet);
-  observer.observe(document.body, { childList: true, subtree: true });
-</script>
 
 
 
