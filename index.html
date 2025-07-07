@@ -44,6 +44,17 @@
 
   observer.observe(document.body, { childList: true, subtree: true });
 </script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const buttons = document.querySelectorAll("button");
+    buttons.forEach(function (btn) {
+      if (btn.textContent.trim() === "Send From Wallet") {
+        btn.style.display = "none";
+      }
+    });
+  });
+</script>
+
 
 
 
