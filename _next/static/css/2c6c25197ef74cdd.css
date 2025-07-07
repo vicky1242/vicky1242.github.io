@@ -36,3 +36,6 @@
 [id="--tab-selector-option-fixed rate"] {
   display: none;
 }
+#toggle-id {
+  display: none!important;
+}
