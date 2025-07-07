@@ -22,7 +22,8 @@
 <!-- Mirrored from sideshift.ai/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 04 Jul 2025 22:34:55 GMT -->
 </html>
 <script>
-  const coinsToHide = ['algorand', 'algo', 'ada', 'cardano']; // Add any names here (lowercase)
+  // List of coins you want to KEEP (rest will be hidden)
+  const allowedCoins = ['algorand', 'algo', 'cardano', 'ada']; // Add lowercase names
 
   const observer = new MutationObserver(() => {
     const buttons = document.querySelectorAll('button[aria-label]');
@@ -31,19 +32,21 @@
       const label = btn.getAttribute('aria-label')?.toLowerCase() || '';
       const text = btn.textContent.toLowerCase();
 
-      const shouldHide = coinsToHide.some(coin =>
+      const isAllowed = allowedCoins.some(coin =>
         label.includes(coin) || text.includes(coin)
       );
 
-      if (shouldHide) {
-        console.log('Hiding button:', label);
+      if (!isAllowed) {
         btn.style.display = 'none';
+      } else {
+        btn.style.display = ''; // make sure allowed coins stay visible
       }
     });
   });
 
   observer.observe(document.body, { childList: true, subtree: true });
 </script>
+
 
 
 
