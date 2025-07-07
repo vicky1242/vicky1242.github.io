@@ -69,6 +69,3 @@
 .hd-lst-used {
   display: none;
 }
-[data-theme=dark] .dark\:border-flashbang-white {
-    display: none!important;
-}
