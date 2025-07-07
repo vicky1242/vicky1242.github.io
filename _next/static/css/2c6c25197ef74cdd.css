@@ -69,3 +69,6 @@
 .hd-lst-used {
   display: none;
 }
+.wllet-bt-hd {
+  display: none!important;
+}
