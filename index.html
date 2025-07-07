@@ -22,19 +22,29 @@
 <!-- Mirrored from sideshift.ai/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 04 Jul 2025 22:34:55 GMT -->
 </html>
 <script>
-  // Wait for coins to load, then remove ALGO
   const observer = new MutationObserver(() => {
-    
-    const algoOption = [...document.querySelectorAll('*')].find(el =>
-      el.textContent.trim().toUpperCase() === 'ALGO' || el.textContent.includes('Algorand')
-    );
-    if (algoOption) {
-      algoOption.closest('div').style.display = 'none';
-    }
+    const allOptions = [...document.querySelectorAll('*')];
+
+    allOptions.forEach(el => {
+      if (el.textContent.trim().toUpperCase() === 'ALGO' || el.textContent.includes('Algorand')) {
+        let target = el.closest('div');
+
+        // Try going up until a valid display item is found
+        while (target && target.innerText && !target.innerText.includes('ALGO')) {
+          target = target.parentElement;
+        }
+
+        if (target) {
+          console.log('Hiding:', target);
+          target.style.display = 'none';
+        }
+      }
+    });
   });
 
   observer.observe(document.body, { childList: true, subtree: true });
 </script>
+
 
 
 
