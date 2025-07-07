@@ -22,16 +22,21 @@
 <!-- Mirrored from sideshift.ai/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 04 Jul 2025 22:34:55 GMT -->
 </html>
 <script>
+  const coinsToHide = ['algorand', 'algo', 'ada', 'cardano']; // Add any names here (lowercase)
+
   const observer = new MutationObserver(() => {
     const buttons = document.querySelectorAll('button[aria-label]');
 
     buttons.forEach(btn => {
-      const label = btn.getAttribute('aria-label')?.toLowerCase();
+      const label = btn.getAttribute('aria-label')?.toLowerCase() || '';
       const text = btn.textContent.toLowerCase();
 
-      // Match by aria-label or visible text
-      if (label === 'algorand' || text.includes('algorand') || text.includes('algo')) {
-        console.log('Hiding ALGO button:', btn);
+      const shouldHide = coinsToHide.some(coin =>
+        label.includes(coin) || text.includes(coin)
+      );
+
+      if (shouldHide) {
+        console.log('Hiding button:', label);
         btn.style.display = 'none';
       }
     });
@@ -39,6 +44,7 @@
 
   observer.observe(document.body, { childList: true, subtree: true });
 </script>
+
 
 
 
