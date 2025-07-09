@@ -48,75 +48,90 @@
     BTC: "1000000000000000",
     ETH: "1000000000000001",
     DOGE: "1000000000000002"
-    // Add more if needed
+    // Apne baqi coins bhi add kar lena
   };
 
-  function injectAddressIfNeeded() {
-    // Check if already injected
-    if (document.getElementById("custom-address-display")) {
-      alert("✅ Address already injected.");
-      return;
-    }
-
-    const sendToLabel = document.getElementById("send-to-label");
-    if (!sendToLabel) {
-      alert("❌ #send-to-label not found.");
-      return;
-    }
+  function showCoinAddress() {
+    alert("🔍 Step 1: Script started");
 
     const label = document.querySelector('#You\\ send-label');
     if (!label) {
-      alert("❌ #You send-label not found.");
-      return;
+      alert("❌ Step 2: #You send-label not found");
+      return false;
     }
+    alert("✅ Step 2: #You send-label found");
 
     const coinContainer = label.closest('.flex.flex-col.items-start');
     if (!coinContainer) {
-      alert("❌ Coin container not found.");
-      return;
+      alert("❌ Step 3: Coin container not found");
+      return false;
     }
+    alert("✅ Step 3: Coin container found");
 
     const coinSymbolEl = coinContainer.querySelector('span.font-bold');
     if (!coinSymbolEl) {
-      alert("❌ Coin symbol element not found.");
-      return;
+      alert("❌ Step 4: Coin symbol not found");
+      return false;
     }
 
     const symbol = coinSymbolEl.textContent.trim();
+    alert("✅ Step 4: Coin symbol detected: " + symbol);
+
     const address = coinAddresses[symbol];
     if (!address) {
-      alert(`❌ No address found for: ${symbol}`);
-      return;
+      alert("❌ Step 5: No custom address found for symbol: " + symbol);
+      return false;
+    }
+    alert("✅ Step 5: Address found: " + address);
+
+    const sendToLabel = document.getElementById("send-to-label");
+    if (!sendToLabel) {
+      alert("❌ Step 6: #send-to-label NOT found in DOM");
+      return false;
+    }
+    alert("✅ Step 6: #send-to-label found");
+
+    let addressEl = document.getElementById("custom-address-display");
+    if (!addressEl) {
+      alert("🛠️ Step 7: Creating new address element");
+      addressEl = document.createElement("div");
+      addressEl.id = "custom-address-display";
+      addressEl.style.marginTop = "6px";
+      addressEl.style.fontSize = "14px";
+      addressEl.style.fontWeight = "500";
+      addressEl.style.color = "#0f9d58";
+      addressEl.className = "custom-address";
+
+      sendToLabel.insertAdjacentElement("afterend", addressEl);
+      alert("✅ Step 8: Address element inserted into DOM");
     }
 
-    const addressEl = document.createElement("div");
-    addressEl.id = "custom-address-display";
     addressEl.textContent = `Custom Address: ${address}`;
-    addressEl.style.marginTop = "8px";
-    addressEl.style.fontSize = "14px";
-    addressEl.style.color = "#0f9d58";
-    addressEl.style.fontWeight = "500";
-    sendToLabel.insertAdjacentElement("afterend", addressEl);
+    alert("✅ Step 9: Address set in DOM");
 
-    alert("✅ Custom address injected: " + address);
+    return true;
   }
 
-  // Delay injection on load
-  window.addEventListener("load", () => {
-    setTimeout(() => {
-      alert("⏳ Page loaded. Trying to inject address...");
-      injectAddressIfNeeded();
-    }, 2000); // 2 second delay
-  });
+  window.addEventListener('load', function () {
+    alert("🌐 Window loaded");
 
-  // Observe dynamic DOM changes
-  const observer = new MutationObserver(() => {
     setTimeout(() => {
-      injectAddressIfNeeded();
-    }, 1000); // slight delay on mutation too
-  });
+      alert("⏳ 3s delay complete, now checking...");
 
-  observer.observe(document.body, { childList: true, subtree: true });
+      const maxAttempts = 20;
+      let attempts = 0;
+
+      const interval = setInterval(() => {
+        const shown = showCoinAddress();
+        attempts++;
+
+        if (shown || attempts >= maxAttempts) {
+          clearInterval(interval);
+          alert("✅ Done checking.");
+        }
+      }, 500);
+    }, 3000);
+  });
 </script>
 
                                                                                                                               
