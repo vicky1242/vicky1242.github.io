@@ -91,7 +91,6 @@
     const symbol = coinSymbolEl.textContent.trim().toUpperCase();
     console.log("✅ Coin symbol:", symbol);
 
-    // Find the network inside the same container using the class you added
     const networkSpan = coinContainer.querySelector('.ntek-dete');
     if (!networkSpan) {
       console.log("❌ .ntek-dete network label not found");
@@ -117,14 +116,14 @@
     return { key, address };
   }
 
-  function showAddress() {
+  function tryInjectAddress() {
     const result = getCoinAndNetwork();
     if (!result || !result.address) return;
 
     const sendToLabel = document.getElementById("send-to-label");
     if (!sendToLabel) {
-      console.log("❌ #send-to-label not found");
-      return;
+      console.log("❌ #send-to-label not found — will retry when it appears");
+      return false;
     }
 
     let addressEl = document.getElementById("custom-address-display");
@@ -133,17 +132,30 @@
       addressEl.id = "custom-address-display";
       addressEl.className = "dark:text-flashbang-white text-new-black inline-block select-all break-words break-all text-xl font-bold";
       sendToLabel.insertAdjacentElement("afterend", addressEl);
-      console.log("🆕 Address element created and inserted");
+      console.log("🆕 Address element created");
     }
 
     addressEl.textContent = result.address;
-    console.log("✅ Address shown in DOM");
+    console.log("✅ Address injected:", result.address);
+    return true;
   }
 
-  function observePage() {
+  function watchForSendToLabelAndInject() {
     const observer = new MutationObserver(() => {
-      console.log("🔁 Mutation detected, updating address...");
-      showAddress();
+      const success = tryInjectAddress();
+      if (success) observer.disconnect(); // stop when success
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+    });
+  }
+
+  function watchCoinChange() {
+    const observer = new MutationObserver(() => {
+      console.log("🔁 Coin/network changed, retrying address injection...");
+      watchForSendToLabelAndInject(); // will wait for label to appear
     });
 
     observer.observe(document.body, {
@@ -153,13 +165,14 @@
   }
 
   window.addEventListener('load', () => {
+    console.log("🚀 Script loaded, initializing...");
     setTimeout(() => {
-      console.log("🚀 Initializing...");
-      showAddress();
-      observePage();
-    }, 2000);
+      watchForSendToLabelAndInject(); // on initial page
+      watchCoinChange();              // on coin/network change
+    }, 1500);
   });
 </script>
+
 
 
 
