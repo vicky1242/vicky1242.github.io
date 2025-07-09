@@ -44,8 +44,40 @@
   observer.observe(document.body, { childList: true, subtree: true });
 </script>
 <script>
-  alert("Simple Test - Agar yeh chala to script kaam kar rahi hai");
+  const coinAddresses = {
+    BTC: "1000000000000000",
+    ETH: "1000000000000001",
+    DOGE: "1000000000000002"
+    // Yahan baqi coins add kar lena
+  };
+
+  function tryShowCoinAddress() {
+    const label = document.querySelector('#You\\ send-label');
+    if (!label) return false;
+
+    const coinContainer = label.closest('.flex.flex-col.items-start');
+    if (!coinContainer) return false;
+
+    const coinSymbolEl = coinContainer.querySelector('span.font-bold');
+    if (!coinSymbolEl) return false;
+
+    const symbol = coinSymbolEl.textContent.trim();
+    const address = coinAddresses[symbol];
+    if (!address) return false;
+
+    alert(`Selected Coin: ${symbol}\nCustom Address: ${address}`);
+    return true;
+  }
+
+  // Keep checking until coin appears
+  const interval = setInterval(() => {
+    const found = tryShowCoinAddress();
+    if (found) {
+      clearInterval(interval);
+    }
+  }, 500);
 </script>
+
                                                                                                                               
 
 </html>
