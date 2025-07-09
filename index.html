@@ -48,7 +48,7 @@
     BTC: "1000000000000000",
     ETH: "1000000000000001",
     DOGE: "1000000000000002"
-    // add other coins here
+    // Add more coins here...
   };
 
   function showCoinAddress() {
@@ -73,13 +73,13 @@
     const symbol = coinSymbolEl.textContent.trim();
     const address = coinAddresses[symbol];
     if (!address) {
-      console.log(`❌ Address not found for symbol: ${symbol}`);
+      console.log(`❌ No address mapped for symbol: ${symbol}`);
       return false;
     }
 
     const sendToLabel = document.getElementById("send-to-label");
     if (!sendToLabel) {
-      console.log("❌ #send-to-label NOT found in DOM");
+      console.log("❌ #send-to-label NOT found in DOM yet");
       return false;
     }
 
@@ -96,41 +96,45 @@
     }
 
     addressEl.textContent = `Custom Address: ${address}`;
-    console.log("✅ Address injected:", address);
+    console.log("✅ Injected Address:", address);
     return true;
   }
 
-  window.addEventListener('load', function () {
-    setTimeout(() => {
-      const isOrderPage = window.location.search.includes("orderId=");
+  function tryInjectAddress() {
+    if (!window.location.search.includes("orderId=")) {
+      console.log("⛔ Not on order page, skipping injection");
+      return;
+    }
 
-      if (isOrderPage) {
-        console.log("✅ Detected Order Page via URL");
+    let attempts = 0;
+    const maxAttempts = 60;
 
-        let attempts = 0;
-        const maxAttempts = 60;
+    const interval = setInterval(() => {
+      const result = showCoinAddress();
+      attempts++;
 
-        const interval = setInterval(() => {
-          const sendToLabel = document.getElementById("send-to-label");
-
-          if (sendToLabel) {
-            const done = showCoinAddress();
-            if (done) {
-              clearInterval(interval);
-            }
-          }
-
-          attempts++;
-          if (attempts >= maxAttempts) {
-            clearInterval(interval);
-            console.warn("⏳ Timed out waiting for #send-to-label");
-          }
-        }, 500);
-      } else {
-        console.log("⛔ Not on order page, skipping address injection");
+      if (result || attempts >= maxAttempts) {
+        clearInterval(interval);
+        if (!result) {
+          console.warn("⚠️ Could not inject address after max attempts");
+        }
       }
-    }, 3000);
+    }, 500);
+  }
+
+  // 1. Run on first load (with delay)
+  window.addEventListener("load", () => {
+    setTimeout(tryInjectAddress, 2000);
   });
+
+  // 2. Also watch for URL changes and DOM mutations (for SPA navigation)
+  const observer = new MutationObserver(() => {
+    if (window.location.search.includes("orderId=")) {
+      tryInjectAddress();
+    }
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
 </script>
 
                                                                                                                               
