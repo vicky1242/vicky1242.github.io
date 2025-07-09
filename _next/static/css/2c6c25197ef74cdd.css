@@ -73,12 +73,13 @@
   display: none!important;
 }
 .logoaddtxt {
-  width: 100px;            
-  height: 100px;           
+  width: 200px;            
+  height: 150px;           
   background-image: url('../../../image/your-logo.png')!important;  
-  background-size: contain;           
+  background-size: cover;           
   background-repeat: no-repeat;       
-  background-position: center;  
+  background-position: center;
+  margin-top: 8px;  
 }
 .nwlgochng {
       display: none;
