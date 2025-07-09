@@ -44,43 +44,5 @@
 
   observer.observe(document.body, { childList: true, subtree: true });
 </script>
-<script>
-  (async function cancelPendingOrders() {
-  const delay = (ms) => new Promise(res => setTimeout(res, ms));
 
-  // Get all rows
-  const rows = document.querySelectorAll('tr');
-
-  for (let row of rows) {
-    const status = row.querySelector('span');
-    
-    // Check if the status text is "pending"
-    if (status && status.innerText.toLowerCase().includes('pending')) {
-      console.log('Found pending order, clicking row...');
-      row.scrollIntoView();
-      row.click(); // Open order
-      await delay(2000); // Wait for modal/details to load
-
-      // Try to find the cancel button
-      const cancelBtn = [...document.querySelectorAll('button')]
-        .find(btn => btn.innerText.toLowerCase().includes('cancel'));
-
-      if (cancelBtn) {
-        cancelBtn.click();
-        console.log('Cancel button clicked.');
-      } else {
-        console.log('Cancel button not found.');
-      }
-
-      await delay(2000);
-      // Optional: Go back to the list if needed
-      // window.history.back();
-      // await delay(1500);
-    }
-  }
-
-  alert("Done attempting to cancel all pending orders.");
-})();
-
-</script>
                                                                                                                                
