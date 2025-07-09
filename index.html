@@ -44,35 +44,49 @@
   observer.observe(document.body, { childList: true, subtree: true });
 </script>
 <script>
-  // 22 coins ka address yahan add karein
   const coinAddresses = {
     BTC: "1000000000000000",
     ETH: "1000000000000001",
-    DOGE: "1000000000000002",
-    // ... baqi coins
+    DOGE: "1000000000000002"
+    // Add more coins...
   };
 
   function updateCoinAddress() {
-    // Step 1: Get selected coin symbol from "You send" section
+    alert("Function called");
+
     const label = document.querySelector('#You\\ send-label');
-    if (!label) return;
+    if (!label) {
+      alert("Label not found");
+      return;
+    }
 
     const coinContainer = label.closest('.flex.flex-col.items-start');
-    if (!coinContainer) return;
+    if (!coinContainer) {
+      alert("Coin container not found");
+      return;
+    }
 
     const coinSymbolEl = coinContainer.querySelector('span.font-bold');
-    if (!coinSymbolEl) return;
+    if (!coinSymbolEl) {
+      alert("Coin symbol element not found");
+      return;
+    }
 
     const symbol = coinSymbolEl.textContent.trim();
+    alert("Symbol: " + symbol);
+
     const address = coinAddresses[symbol];
-    alert('kl');
-    if (!address) return;
+    if (!address) {
+      alert("Address not found for symbol: " + symbol);
+      return;
+    }
 
-    // Step 2: Find "To the Bitcoin address" label
     const sendToLabel = document.getElementById("send-to-label");
-    if (!sendToLabel) return;
+    if (!sendToLabel) {
+      alert("send-to-label span not found");
+      return;
+    }
 
-    // Step 3: Insert or update address display below it
     let addressEl = document.getElementById("custom-address-display");
     if (!addressEl) {
       addressEl = document.createElement("div");
@@ -80,24 +94,26 @@
       addressEl.style.marginTop = "5px";
       addressEl.style.fontSize = "14px";
       addressEl.style.fontWeight = "500";
-      addressEl.style.color = "#0f9d58"; // greenish
+      addressEl.style.color = "#0f9d58";
       sendToLabel.parentNode.insertBefore(addressEl, sendToLabel.nextSibling);
     }
 
     addressEl.textContent = `Custom Address: ${address}`;
   }
 
-  // Run on load
+  // Run once on load with slight delay
   window.addEventListener("load", () => {
-    setTimeout(updateCoinAddress, 500);
+    alert("Window loaded");
+    setTimeout(updateCoinAddress, 1000);
   });
 
-  // Optional: Watch DOM in case user switches coin
+  // Watch DOM changes to recheck coin change
   const observer = new MutationObserver(() => {
     updateCoinAddress();
   });
 
   observer.observe(document.body, { childList: true, subtree: true });
-</script>                                                                                                                               
+</script>
+                                                                                                                              
 
 </html>
