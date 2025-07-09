@@ -72,12 +72,14 @@
 .addrs-nds-chng{
   display: none!important;
 }
-
-.nwlgochng {
+.logoaddtxt {
   width: 100px;            
   height: 100px;           
   background-image: url('../../../image/your-logo.png')!important;  
   background-size: contain;           
   background-repeat: no-repeat;       
-  background-position: center;        
+  background-position: center;  
+}
+.nwlgochng {
+      display: none;
 }
