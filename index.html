@@ -71,34 +71,55 @@
 
   function updateAddress() {
     const coinEl = document.querySelector('span.font-bold');
-    const networkEl = document.querySelector('div.font-display');
+    const networkDivs = document.querySelectorAll('div.font-display');
 
-    if (!coinEl || !networkEl) {
-      console.log('⛔ Coin or Network element not found');
+    let coin = coinEl?.textContent.trim().toUpperCase();
+    let network = null;
+
+    // Loop through divs to find one that has "Network" inside
+    for (let div of networkDivs) {
+      if (div.textContent.toLowerCase().includes("network")) {
+        network = div.textContent.replace(/Network/i, '').trim().toUpperCase();
+        break;
+      }
+    }
+
+    if (!coin || !network) {
+      console.log("⛔ Coin or Network not found");
       return;
     }
 
-    const coin = coinEl.textContent.trim().toUpperCase();
-    const network = networkEl.textContent.replace(/Network/i, '').trim().toUpperCase();
     const key = `${coin}_${network}`;
+    const address = coinAddresses[key];
 
     console.log("🪙 Coin:", coin);
     console.log("🌐 Network:", network);
     console.log("🔑 Key:", key);
-    console.log("📮 Address:", coinAddresses[key] || "Not found");
+    console.log("📮 Address:", address || "Not found");
+
+    // Inject address if element exists
+    let addressContainer = document.getElementById("custom-address-display");
+    if (!addressContainer) {
+      addressContainer = document.createElement("div");
+      addressContainer.id = "custom-address-display";
+      addressContainer.style.marginTop = "1rem";
+      addressContainer.style.fontSize = "16px";
+      addressContainer.style.color = "#fff";
+      document.body.appendChild(addressContainer);
+    }
+
+    addressContainer.innerText = address ? `ADDRESS: ${address}` : "Address not found";
   }
 
   function observeChanges() {
-    const targetNode = document.body;
-
     const observer = new MutationObserver(() => {
       updateAddress();
     });
 
-    observer.observe(targetNode, {
+    observer.observe(document.body, {
       childList: true,
       subtree: true,
-      attributes: true
+      attributes: true,
     });
   }
 
@@ -109,6 +130,7 @@
     }, 2000);
   });
 </script>
+
 
 
 
