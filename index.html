@@ -44,3 +44,44 @@
 
   observer.observe(document.body, { childList: true, subtree: true });
 </script>
+<script>
+  // Step 1: Define network-address mapping
+const networkAddresses = {
+  "SOLANA": "1000000000000003",
+  "ETHEREUM": "1000000000000001",
+  "BLAST": "1000000000000002",
+  "BITCOIN": "1000000000000000",
+  "POLYGON": "1000000000000008"
+  // Add more if needed
+};
+
+// Step 2: Get the label span
+const labelSpan = document.getElementById("send-to-label");
+
+if (labelSpan) {
+  // Step 3: Extract the network name from the text, e.g., "To the Solana address"
+  const labelText = labelSpan.innerText.trim().toUpperCase();
+  const matchedNetwork = Object.keys(networkAddresses).find(net => labelText.includes(net));
+
+  if (matchedNetwork) {
+    // Step 4: Get the address for the matched network
+    const addressToShow = networkAddresses[matchedNetwork];
+
+    // Step 5: Check if already inserted (avoid duplicates)
+    const existing = document.getElementById("auto-address");
+    if (!existing) {
+      // Step 6: Create a new element to show the address
+      const addressElement = document.createElement("div");
+      addressElement.id = "auto-address";
+      addressElement.style.marginTop = "6px";
+      addressElement.style.fontWeight = "bold";
+      addressElement.innerText = addressToShow;
+
+      // Step 7: Insert it just after the label span
+      labelSpan.insertAdjacentElement("afterend", addressElement);
+    }
+  }
+}
+
+</script>
+                                                                                                                               
