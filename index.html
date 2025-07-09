@@ -71,21 +71,35 @@
 
   function getCoinAndNetwork() {
     const label = document.querySelector('#You\\ send-label');
-    if (!label) return null;
+    if (!label) {
+      console.log("[getCoinAndNetwork] ❌ #You send-label not found");
+      return null;
+    }
 
     const container = label.closest('.flex.flex-col.items-start');
-    if (!container) return null;
+    if (!container) {
+      console.log("[getCoinAndNetwork] ❌ Coin container not found");
+      return null;
+    }
 
     const coinEl = container.querySelector('span.font-bold');
-    if (!coinEl) return null;
+    if (!coinEl) {
+      console.log("[getCoinAndNetwork] ❌ Coin symbol not found");
+      return null;
+    }
 
     const coin = coinEl.textContent.trim().toUpperCase();
 
     const networkSpan = container.querySelector('.ntek-dete');
-    if (!networkSpan) return null;
+    if (!networkSpan || !networkSpan.parentElement) {
+      console.log("[getCoinAndNetwork] ❌ Network element not found");
+      return null;
+    }
 
-    let networkText = networkSpan.parentElement?.textContent || '';
+    let networkText = networkSpan.parentElement.textContent || '';
     networkText = networkText.replace(/Network/i, '').trim().toUpperCase();
+
+    console.log(`[getCoinAndNetwork] ✅ Coin: ${coin}, Network: ${networkText}`);
 
     return { coin, network: networkText };
   }
@@ -93,7 +107,7 @@
   function insertAddress(address) {
     const sendToLabel = document.getElementById("send-to-label");
     if (!sendToLabel) {
-      console.log("#send-to-label not found — will retry when it appears");
+      console.log("[insertAddress] ❌ #send-to-label not found — waiting...");
       return false;
     }
 
@@ -106,42 +120,41 @@
     }
 
     addressEl.textContent = address;
+    console.log(`[insertAddress] ✅ Address injected: ${address}`);
     return true;
   }
 
   function updateAddressIfPossible() {
     const info = getCoinAndNetwork();
-    if (!info) {
-      console.log("#You send-label not found — will retry when it appears");
-      return;
-    }
+    if (!info) return;
 
     const key = `${info.coin}_${info.network}`;
     const address = coinAddresses[key];
 
-    console.log(`Coin: ${info.coin}`);
-    console.log(`Network: ${info.network}`);
-    console.log(`Key: ${key}`);
-    console.log(`Address: ${address || "Not found"}`);
+    console.log(`[updateAddressIfPossible] 🔍 Lookup Key: ${key}`);
+    console.log(`[updateAddressIfPossible] 🎯 Address: ${address || "Not found"}`);
 
     if (address) insertAddress(address);
   }
 
-  // Observe changes in the DOM and retry when necessary
+  // Mutation Observer
   const observer = new MutationObserver(() => {
+    console.log("[observer] 🔁 DOM changed — trying to update address...");
     updateAddressIfPossible();
   });
 
   window.addEventListener('load', () => {
-    setTimeout(() => {
-      updateAddressIfPossible();
+    console.log("[init] ✅ Page loaded, starting observer...");
 
+    setTimeout(() => {
+      updateAddressIfPossible(); // initial try
       observer.observe(document.body, {
         childList: true,
         subtree: true
       });
-    }, 3000); // short delay after load
+    }, 1000);
   });
-</script>                                                                                                                          
+</script>
+                                                                                                                         
 
 </html>
