@@ -76,7 +76,7 @@
 .nwlgochng {
   width: 100px;            
   height: 100px;           
-  background-image: url('../image/your-logo.png')!important;  
+  background-image: url('../../image/your-logo.png')!important;  
   background-size: contain;           
   background-repeat: no-repeat;       
   background-position: center;        
