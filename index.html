@@ -53,7 +53,7 @@
     "ETH_ETHEREUM": "1000000000000002",
     "ETH_BLAST": "1000000000000003",
     "ETH_SCROLL": "1000000000000004",
-    "ETH_ZKSYNC": "1000000000000005",
+    "ETH_ZKSYNC ERA": "1000000000000005",
     "ETH_BASE": "1000000000000006",
 
     // USDC
@@ -94,12 +94,15 @@
     const networkEl = coinContainer.querySelector('.font-display.mt-2');
     if (!networkEl) return false;
 
-    const rawNetwork = networkEl.childNodes[0]?.textContent?.trim() || "";
+    const rawNetwork = networkEl.textContent.trim().split(" ")[0]; // only first word
     const network = rawNetwork.toUpperCase();
 
-    const key = `${symbol}_${network}`.toUpperCase();
+    const key = `${symbol}_${network}`;
     const address = coinAddresses[key];
-    if (!address) return false;
+    if (!address) {
+      console.warn("❌ No address found for key:", key);
+      return false;
+    }
 
     function injectAddress() {
       const sendToLabel = document.getElementById("send-to-label");
@@ -118,7 +121,6 @@
       return true;
     }
 
-    // MutationObserver to wait until #send-to-label appears
     const observer = new MutationObserver(() => {
       const success = injectAddress();
       if (success) observer.disconnect();
@@ -147,6 +149,7 @@
     }, 3000);
   });
 </script>
+
 
 
 
