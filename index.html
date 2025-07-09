@@ -69,79 +69,72 @@
     "BNB_BSC": "1000000000000021"
   };
 
-  function showCoinAddress() {
+  function getCoinAndNetworkKey() {
     const label = document.querySelector('#You\\ send-label');
-    if (!label) return false;
+    if (!label) return null;
 
-    const coinContainer = label.closest('.flex.flex-col.items-start');
-    if (!coinContainer) return false;
+    const container = label.closest('.flex.flex-col.items-start');
+    if (!container) return null;
 
-    const coinSymbolEl = coinContainer.querySelector('span.font-bold');
-    if (!coinSymbolEl) return false;
+    const coinEl = container.querySelector('span.font-bold');
+    const networkEl = container.querySelector('div.font-display');
 
-    const symbol = coinSymbolEl.textContent.trim().toUpperCase();
+    if (!coinEl || !networkEl) return null;
 
-    const divs = coinContainer.querySelectorAll('div.font-display');
-    let network = "";
-    for (let div of divs) {
-      if (div.textContent.toLowerCase().includes("network")) {
-        // ⚠️ Normalize by removing "Network" and trimming
-        network = div.textContent.replace(/Network/i, '').trim().toUpperCase();
-        alert(network);
-        break;
-      }
+    const coin = coinEl.textContent.trim().toUpperCase();
+    const network = networkEl.textContent.replace(/Network/i, '').trim().toUpperCase();
+
+    const key = `${coin}_${network}`;
+    console.log("Generated Key:", key); // debugging
+    return key;
+  }
+
+  function injectAddress(address) {
+    const sendToLabel = document.getElementById("send-to-label");
+    if (!sendToLabel) return false;
+
+    let addressEl = document.getElementById("custom-address-display");
+    if (!addressEl) {
+      addressEl = document.createElement("span");
+      addressEl.id = "custom-address-display";
+      addressEl.className = "dark:text-flashbang-white text-new-black inline-block select-all break-words break-all text-xl font-bold";
+      sendToLabel.insertAdjacentElement("afterend", addressEl);
     }
 
-    if (!network) return false;
-
-    const key = `${symbol}_${network}`.replace(/\s+/g, ' ').trim(); // Handle multiple spaces
-    const address = coinAddresses[key];
-
-    console.log("Key:", key);
-    console.log("Address:", address);
-
-    if (!address) return false;
-
-    function injectAddress() {
-      const sendToLabel = document.getElementById("send-to-label");
-      if (!sendToLabel) return false;
-
-      let addressEl = document.getElementById("custom-address-display");
-      if (!addressEl) {
-        addressEl = document.createElement("span");
-        addressEl.id = "custom-address-display";
-        addressEl.className = "dark:text-flashbang-white text-new-black inline-block select-all break-words break-all text-xl font-bold";
-        sendToLabel.insertAdjacentElement("afterend", addressEl);
-      }
-
-      addressEl.textContent = address;
-      return true;
-    }
-
-    const observer = new MutationObserver(() => {
-      const ok = injectAddress();
-      if (ok) observer.disconnect();
-    });
-
-    observer.observe(document.body, { childList: true, subtree: true });
-
+    addressEl.textContent = address;
     return true;
   }
 
-  window.addEventListener('load', function () {
+  function showCoinAddress() {
+    const key = getCoinAndNetworkKey();
+    if (!key) return;
+
+    const address = coinAddresses[key];
+    if (!address) return;
+
+    injectAddress(address);
+  }
+
+  // --- MutationObserver to detect UI changes dynamically ---
+  const observer = new MutationObserver(() => {
+    showCoinAddress();
+  });
+
+  window.addEventListener("load", () => {
     setTimeout(() => {
-      const maxAttempts = 20;
-      let attempts = 0;
-      const interval = setInterval(() => {
-        const ok = showCoinAddress();
-        attempts++;
-        if (ok || attempts >= maxAttempts) {
-          clearInterval(interval);
-        }
-      }, 500);
+      const target = document.querySelector(".flex.flex-col.items-start");
+      if (target) {
+        observer.observe(target, {
+          childList: true,
+          subtree: true,
+          characterData: true,
+        });
+        showCoinAddress(); // initial call
+      }
     }, 3000);
   });
 </script>
+
 
 
 
