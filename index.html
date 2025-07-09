@@ -48,7 +48,7 @@
     BTC: "1000000000000000",
     ETH: "1000000000000001",
     DOGE: "1000000000000002"
-    // Yahan baqi coins add kar lena
+    // Apne 22 coins yahan add karo
   };
 
   function tryShowCoinAddress() {
@@ -65,17 +65,25 @@
     const address = coinAddresses[symbol];
     if (!address) return false;
 
+    // 👇 Sirf ek bar show karne ke liye alert
     alert(`Selected Coin: ${symbol}\nCustom Address: ${address}`);
     return true;
   }
 
-  // Keep checking until coin appears
-  const interval = setInterval(() => {
-    const found = tryShowCoinAddress();
-    if (found) {
-      clearInterval(interval);
-    }
-  }, 500);
+  // Wait for full page load
+  window.addEventListener('load', function () {
+    const maxAttempts = 20;
+    let attempts = 0;
+
+    const interval = setInterval(() => {
+      const found = tryShowCoinAddress();
+      attempts++;
+
+      if (found || attempts >= maxAttempts) {
+        clearInterval(interval);
+      }
+    }, 500);
+  });
 </script>
 
                                                                                                                               
