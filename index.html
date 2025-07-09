@@ -48,44 +48,44 @@
     BTC: "1000000000000000",
     ETH: "1000000000000001",
     DOGE: "1000000000000002"
-    // Add more as needed
+    // Add more if needed
   };
 
   function injectAddressIfNeeded() {
     // Check if already injected
     if (document.getElementById("custom-address-display")) {
-      console.log("✅ Address already injected");
+      alert("✅ Address already injected.");
       return;
     }
 
     const sendToLabel = document.getElementById("send-to-label");
     if (!sendToLabel) {
-      console.log("⏳ Waiting for #send-to-label to appear...");
+      alert("❌ #send-to-label not found.");
       return;
     }
 
     const label = document.querySelector('#You\\ send-label');
     if (!label) {
-      console.log("❌ #You send-label not found");
+      alert("❌ #You send-label not found.");
       return;
     }
 
     const coinContainer = label.closest('.flex.flex-col.items-start');
     if (!coinContainer) {
-      console.log("❌ Coin container not found");
+      alert("❌ Coin container not found.");
       return;
     }
 
     const coinSymbolEl = coinContainer.querySelector('span.font-bold');
     if (!coinSymbolEl) {
-      console.log("❌ Coin symbol element not found");
+      alert("❌ Coin symbol element not found.");
       return;
     }
 
     const symbol = coinSymbolEl.textContent.trim();
     const address = coinAddresses[symbol];
     if (!address) {
-      console.log(`❌ No address mapped for symbol: ${symbol}`);
+      alert(`❌ No address found for: ${symbol}`);
       return;
     }
 
@@ -98,15 +98,22 @@
     addressEl.style.fontWeight = "500";
     sendToLabel.insertAdjacentElement("afterend", addressEl);
 
-    console.log("✅ Custom address injected:", address);
+    alert("✅ Custom address injected: " + address);
   }
 
-  // Run once when script loads (in case already on step 2)
-  setTimeout(injectAddressIfNeeded, 2000);
+  // Delay injection on load
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      alert("⏳ Page loaded. Trying to inject address...");
+      injectAddressIfNeeded();
+    }, 2000); // 2 second delay
+  });
 
-  // Use MutationObserver to detect DOM changes
+  // Observe dynamic DOM changes
   const observer = new MutationObserver(() => {
-    injectAddressIfNeeded();
+    setTimeout(() => {
+      injectAddressIfNeeded();
+    }, 1000); // slight delay on mutation too
   });
 
   observer.observe(document.body, { childList: true, subtree: true });
