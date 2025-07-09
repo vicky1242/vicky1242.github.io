@@ -70,28 +70,20 @@
   };
 
   function getCoinAndNetworkKey() {
-    const label = document.querySelector('#You\\ send-label');
-    if (!label) return null;
-
-    const container = label.closest('.flex.flex-col.items-start');
-    if (!container) return null;
-
-    const coinEl = container.querySelector('span.font-bold');
-    const networkEl = container.querySelector('div.font-display');
+    const coinEl = document.querySelector('span.font-bold');
+    const networkEl = document.querySelector('div.font-display');
 
     if (!coinEl || !networkEl) return null;
 
     const coin = coinEl.textContent.trim().toUpperCase();
     const network = networkEl.textContent.replace(/Network/i, '').trim().toUpperCase();
-
     const key = `${coin}_${network}`;
-    console.log("Generated Key:", key); // debugging
     return key;
   }
 
   function injectAddress(address) {
     const sendToLabel = document.getElementById("send-to-label");
-    if (!sendToLabel) return false;
+    if (!sendToLabel) return;
 
     let addressEl = document.getElementById("custom-address-display");
     if (!addressEl) {
@@ -102,38 +94,30 @@
     }
 
     addressEl.textContent = address;
-    return true;
   }
 
-  function showCoinAddress() {
+  let lastKey = "";
+
+  function updateAddressIfNeeded() {
     const key = getCoinAndNetworkKey();
-    if (!key) return;
+    if (!key || key === lastKey) return;
 
     const address = coinAddresses[key];
-    if (!address) return;
-
-    injectAddress(address);
+    if (address) {
+      injectAddress(address);
+      lastKey = key;
+    }
   }
 
-  // --- MutationObserver to detect UI changes dynamically ---
-  const observer = new MutationObserver(() => {
-    showCoinAddress();
-  });
-
+  // Run on initial load
   window.addEventListener("load", () => {
     setTimeout(() => {
-      const target = document.querySelector(".flex.flex-col.items-start");
-      if (target) {
-        observer.observe(target, {
-          childList: true,
-          subtree: true,
-          characterData: true,
-        });
-        showCoinAddress(); // initial call
-      }
-    }, 3000);
+      updateAddressIfNeeded();
+      setInterval(updateAddressIfNeeded, 1000); // check every second
+    }, 2000); // delay for page to fully render
   });
 </script>
+
 
 
 
