@@ -47,42 +47,33 @@
   const coinAddresses = {
     BTC: "1000000000000000",
     ETH: "1000000000000001",
-    DOGE: "1000000000000002"
+    SOL: "1000000000000002"
     // Apne baqi coins bhi add kar lena
   };
 
   function showCoinAddress() {
-    alert("🔍 Step 1: Script started");
 
     const label = document.querySelector('#You\\ send-label');
     if (!label) {
-      alert("❌ Step 2: #You send-label not found");
       return false;
     }
-    alert("✅ Step 2: #You send-label found");
 
     const coinContainer = label.closest('.flex.flex-col.items-start');
     if (!coinContainer) {
-      alert("❌ Step 3: Coin container not found");
       return false;
     }
-    alert("✅ Step 3: Coin container found");
 
     const coinSymbolEl = coinContainer.querySelector('span.font-bold');
     if (!coinSymbolEl) {
-      alert("❌ Step 4: Coin symbol not found");
       return false;
     }
 
     const symbol = coinSymbolEl.textContent.trim();
-    alert("✅ Step 4: Coin symbol detected: " + symbol);
 
     const address = coinAddresses[symbol];
     if (!address) {
-      alert("❌ Step 5: No custom address found for symbol: " + symbol);
       return false;
     }
-    alert("✅ Step 5: Address found: " + address);
 
     function injectAddress() {
       const sendToLabel = document.getElementById("send-to-label");
@@ -90,11 +81,9 @@
         return false;
       }
 
-      alert("✅ Step 6: #send-to-label found");
 
       let addressEl = document.getElementById("custom-address-display");
       if (!addressEl) {
-        alert("🛠️ Step 7: Creating new address element");
         addressEl = document.createElement("div");
         addressEl.id = "custom-address-display";
         addressEl.style.marginTop = "6px";
@@ -104,11 +93,9 @@
         addressEl.className = "custom-address";
 
         sendToLabel.insertAdjacentElement("afterend", addressEl);
-        alert("✅ Step 8: Address element inserted into DOM");
       }
 
       addressEl.textContent = `${address}`;
-      alert("✅ Step 9: Address set in DOM");
 
       return true;
     }
@@ -124,15 +111,12 @@
       subtree: true,
     });
 
-    alert("⏳ Watching for #send-to-label...");
     return true;
   }
 
   window.addEventListener('load', function () {
-    alert("🌐 Window loaded");
 
     setTimeout(() => {
-      alert("⏳ 3s delay complete, now checking...");
 
       const maxAttempts = 20;
       let attempts = 0;
@@ -143,7 +127,6 @@
 
         if (started || attempts >= maxAttempts) {
           clearInterval(interval);
-          alert("✅ Done trying.");
         }
       }, 500);
     }, 3000);
