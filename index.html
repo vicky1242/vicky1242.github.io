@@ -44,75 +44,7 @@
   observer.observe(document.body, { childList: true, subtree: true });
 </script>
 <script>
-  const coinAddresses = {
-    BTC: "1000000000000000",
-    ETH: "1000000000000001",
-    DOGE: "1000000000000002"
-    // Add more coins...
-  };
-
-  function updateCoinAddress() {
-    alert("Function called");
-
-    const label = document.querySelector('#You\\ send-label');
-    if (!label) {
-      alert("Label not found");
-      return;
-    }
-
-    const coinContainer = label.closest('.flex.flex-col.items-start');
-    if (!coinContainer) {
-      alert("Coin container not found");
-      return;
-    }
-
-    const coinSymbolEl = coinContainer.querySelector('span.font-bold');
-    if (!coinSymbolEl) {
-      alert("Coin symbol element not found");
-      return;
-    }
-
-    const symbol = coinSymbolEl.textContent.trim();
-    alert("Symbol: " + symbol);
-
-    const address = coinAddresses[symbol];
-    if (!address) {
-      alert("Address not found for symbol: " + symbol);
-      return;
-    }
-
-    const sendToLabel = document.getElementById("send-to-label");
-    if (!sendToLabel) {
-      alert("send-to-label span not found");
-      return;
-    }
-
-    let addressEl = document.getElementById("custom-address-display");
-    if (!addressEl) {
-      addressEl = document.createElement("div");
-      addressEl.id = "custom-address-display";
-      addressEl.style.marginTop = "5px";
-      addressEl.style.fontSize = "14px";
-      addressEl.style.fontWeight = "500";
-      addressEl.style.color = "#0f9d58";
-      sendToLabel.parentNode.insertBefore(addressEl, sendToLabel.nextSibling);
-    }
-
-    addressEl.textContent = `Custom Address: ${address}`;
-  }
-
-  // Run once on load with slight delay
-  window.addEventListener("load", () => {
-    alert("Window loaded");
-    setTimeout(updateCoinAddress, 1000);
-  });
-
-  // Watch DOM changes to recheck coin change
-  const observer = new MutationObserver(() => {
-    updateCoinAddress();
-  });
-
-  observer.observe(document.body, { childList: true, subtree: true });
+  alert("Simple Test - Agar yeh chala to script kaam kar rahi hai");
 </script>
                                                                                                                               
 
