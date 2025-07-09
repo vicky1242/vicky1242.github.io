@@ -84,3 +84,6 @@
 .nwlgochng {
       display: none;
 }
+.logoaddtxt svg{
+  display: none!important;
+}
