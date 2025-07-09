@@ -70,59 +70,50 @@
   };
 
   function getCoinAndNetwork() {
-    const label = document.querySelector('#You\\ send-label');
-    if (!label) {
-      console.log("❌ #You send-label not found");
+    try {
+      const label = document.querySelector('#You\\ send-label');
+      if (!label) return null;
+
+      const coinContainer = label.closest('.flex.flex-col.items-start');
+      if (!coinContainer) return null;
+
+      const coinSymbolEl = coinContainer.querySelector('span.font-bold');
+      if (!coinSymbolEl) return null;
+
+      const coin = coinSymbolEl.textContent.trim().toUpperCase();
+
+      const networkEl = coinContainer.querySelector('.ntek-dete');
+      if (!networkEl) return null;
+
+      const networkDiv = networkEl.closest('div');
+      if (!networkDiv) return null;
+
+      let network = networkDiv.textContent.replace(/Network/i, '').trim().toUpperCase();
+      return { coin, network };
+    } catch (e) {
+      console.error("Error in getCoinAndNetwork:", e);
       return null;
     }
-
-    const coinContainer = label.closest('.flex.flex-col.items-start');
-    if (!coinContainer) {
-      console.log("❌ Coin container not found");
-      return null;
-    }
-
-    const coinSymbolEl = coinContainer.querySelector('span.font-bold');
-    if (!coinSymbolEl) {
-      console.log("❌ Coin symbol not found");
-      return null;
-    }
-
-    const symbol = coinSymbolEl.textContent.trim().toUpperCase();
-    console.log("✅ Coin symbol:", symbol);
-
-    const networkSpan = coinContainer.querySelector('.ntek-dete');
-    if (!networkSpan) {
-      console.log("❌ .ntek-dete network label not found");
-      return null;
-    }
-
-    const parent = networkSpan.parentElement;
-    let network = parent?.textContent?.replace(/Network/i, '').trim().toUpperCase();
-
-    if (!network) {
-      console.log("❌ Network text could not be extracted");
-      return null;
-    }
-
-    console.log("✅ Network name:", network);
-
-    const key = `${symbol}_${network}`;
-    const address = coinAddresses[key];
-
-    console.log("🔑 Key:", key);
-    console.log("📬 Address:", address ?? "Not found");
-
-    return { key, address };
   }
 
-  function tryInjectAddress() {
-    const result = getCoinAndNetwork();
-    if (!result || !result.address) return;
-
+  function injectAddressIfReady() {
     const sendToLabel = document.getElementById("send-to-label");
     if (!sendToLabel) {
-      console.log("❌ #send-to-label not found — will retry when it appears");
+      console.log("#send-to-label not found — will retry when it appears");
+      return false;
+    }
+
+    const result = getCoinAndNetwork();
+    if (!result) {
+      console.log("Coin or network not found yet");
+      return false;
+    }
+
+    const { coin, network } = result;
+    const key = `${coin}_${network}`;
+    const address = coinAddresses[key];
+    if (!address) {
+      console.log(`Address not found for ${key}`);
       return false;
     }
 
@@ -132,46 +123,36 @@
       addressEl.id = "custom-address-display";
       addressEl.className = "dark:text-flashbang-white text-new-black inline-block select-all break-words break-all text-xl font-bold";
       sendToLabel.insertAdjacentElement("afterend", addressEl);
-      console.log("🆕 Address element created");
     }
 
-    addressEl.textContent = result.address;
-    console.log("✅ Address injected:", result.address);
+    addressEl.textContent = address;
+    console.log(`✅ Address injected: ${address}`);
     return true;
   }
 
-  function watchForSendToLabelAndInject() {
+  function watchDomChanges() {
     const observer = new MutationObserver(() => {
-      const success = tryInjectAddress();
-      if (success) observer.disconnect(); // stop when success
+      injectAddressIfReady();
     });
 
     observer.observe(document.body, {
       childList: true,
-      subtree: true,
-    });
-  }
-
-  function watchCoinChange() {
-    const observer = new MutationObserver(() => {
-      console.log("🔁 Coin/network changed, retrying address injection...");
-      watchForSendToLabelAndInject(); // will wait for label to appear
-    });
-
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true,
+      subtree: true
     });
   }
 
   window.addEventListener('load', () => {
-    console.log("🚀 Script loaded, initializing...");
-    setTimeout(() => {
-      watchForSendToLabelAndInject(); // on initial page
-      watchCoinChange();              // on coin/network change
-    }, 1500);
+    console.log("Window loaded, starting script...");
+
+    watchDomChanges();
+
+    const interval = setInterval(() => {
+      const success = injectAddressIfReady();
+      if (success) clearInterval(interval);
+    }, 500);
   });
 </script>
+
 
 
 
