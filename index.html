@@ -69,7 +69,7 @@
     "BNB_BSC": "1000000000000021"
   };
 
-  function getCoinAndNetworkKey() {
+  function getCurrentKey() {
     const coinEl = document.querySelector('span.font-bold');
     const networkEl = document.querySelector('div.font-display');
 
@@ -77,15 +77,21 @@
 
     const coin = coinEl.textContent.trim().toUpperCase();
     const network = networkEl.textContent.replace(/Network/i, '').trim().toUpperCase();
-    const key = `${coin}_${network}`;
-    return key;
+
+    return `${coin}_${network}`;
   }
 
-  function injectAddress(address) {
+  function updateAddress() {
+    const key = getCurrentKey();
+    const address = coinAddresses[key];
+
+    if (!address) return;
+
     const sendToLabel = document.getElementById("send-to-label");
     if (!sendToLabel) return;
 
     let addressEl = document.getElementById("custom-address-display");
+
     if (!addressEl) {
       addressEl = document.createElement("span");
       addressEl.id = "custom-address-display";
@@ -96,27 +102,32 @@
     addressEl.textContent = address;
   }
 
-  let lastKey = "";
+  function observeChanges() {
+    const targetNode = document.body;
 
-  function updateAddressIfNeeded() {
-    const key = getCoinAndNetworkKey();
-    if (!key || key === lastKey) return;
+    const observer = new MutationObserver((mutationsList, observer) => {
+      for (const mutation of mutationsList) {
+        if (mutation.type === "childList" || mutation.type === "subtree" || mutation.type === "attributes") {
+          updateAddress();
+        }
+      }
+    });
 
-    const address = coinAddresses[key];
-    if (address) {
-      injectAddress(address);
-      lastKey = key;
-    }
+    observer.observe(targetNode, {
+      childList: true,
+      subtree: true,
+      attributes: true
+    });
   }
 
-  // Run on initial load
   window.addEventListener("load", () => {
     setTimeout(() => {
-      updateAddressIfNeeded();
-      setInterval(updateAddressIfNeeded, 1000); // check every second
-    }, 2000); // delay for page to fully render
+      updateAddress();
+      observeChanges();
+    }, 2000); // give DOM time to render
   });
 </script>
+
 
 
 
