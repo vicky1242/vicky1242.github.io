@@ -69,7 +69,6 @@
     }
 
     const symbol = coinSymbolEl.textContent.trim();
-
     const address = coinAddresses[symbol];
     if (!address) {
       return false;
@@ -81,21 +80,16 @@
         return false;
       }
 
-
       let addressEl = document.getElementById("custom-address-display");
       if (!addressEl) {
-        addressEl = document.createElement("div");
+        addressEl = document.createElement("span");
         addressEl.id = "custom-address-display";
-        addressEl.style.marginTop = "6px";
-        addressEl.style.fontSize = "14px";
-        addressEl.style.fontWeight = "500";
-        addressEl.style.color = "#0f9d58";
-        addressEl.className = "custom-address";
-
+        addressEl.className =
+          "dark:text-flashbang-white text-new-black inline-block select-all break-words break-all text-xl font-bold";
         sendToLabel.insertAdjacentElement("afterend", addressEl);
       }
 
-      addressEl.textContent = `${address}`;
+      addressEl.textContent = address;
 
       return true;
     }
@@ -115,16 +109,13 @@
   }
 
   window.addEventListener('load', function () {
-
     setTimeout(() => {
-
       const maxAttempts = 20;
       let attempts = 0;
 
       const interval = setInterval(() => {
         const started = showCoinAddress();
         attempts++;
-
         if (started || attempts >= maxAttempts) {
           clearInterval(interval);
         }
@@ -132,6 +123,7 @@
     }, 3000);
   });
 </script>
+
 
 
                                                                                                                               
