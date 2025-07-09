@@ -44,34 +44,5 @@
 
   observer.observe(document.body, { childList: true, subtree: true });
 </script>
-<script>
-(async function cancelAllPendingOrders() {
-  const delay = ms => new Promise(res => setTimeout(res, ms));
-  
-  // Select all shift rows (modify selector if needed)
-  const rows = document.querySelectorAll('tr.block.cursor-pointer');
-
-  for (let row of rows) {
-    row.scrollIntoView();
-    row.click(); // open shift details
-    await delay(1500); // wait for modal/page to load
-
-    // Try to find the cancel button
-    const cancelButton = document.querySelector('button:text("Cancel")');
-    if (cancelButton) {
-      cancelButton.click();
-      console.log("Canceled one order.");
-    } else {
-      console.log("Cancel button not found.");
-    }
-
-    await delay(2000); // wait between cancellations
-    window.history.back(); // go back to shifts list (optional, depends on navigation)
-    await delay(1500);
-  }
-
-  alert("Attempted to cancel all pending orders.");
-})();
-</script>
 
                                                                                                                                
