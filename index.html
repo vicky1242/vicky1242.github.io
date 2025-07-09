@@ -81,22 +81,24 @@
 
     const symbol = coinSymbolEl.textContent.trim().toUpperCase();
 
-    // 🔍 Find the correct div that contains the network
     const divs = coinContainer.querySelectorAll('div.font-display');
     let network = "";
     for (let div of divs) {
       if (div.textContent.toLowerCase().includes("network")) {
-        network = div.textContent.trim().split(' ')[0].toUpperCase();
-        alert(network);
+        // ⚠️ Normalize by removing "Network" and trimming
+        network = div.textContent.replace(/Network/i, '').trim().toUpperCase();
         break;
       }
     }
 
     if (!network) return false;
 
-    const key = `${symbol}_${network}`;
-    alert(key);
+    const key = `${symbol}_${network}`.replace(/\s+/g, ' ').trim(); // Handle multiple spaces
     const address = coinAddresses[key];
+
+    console.log("Key:", key);
+    console.log("Address:", address);
+
     if (!address) return false;
 
     function injectAddress() {
@@ -115,7 +117,6 @@
       return true;
     }
 
-    // MutationObserver in case the label appears late
     const observer = new MutationObserver(() => {
       const ok = injectAddress();
       if (ok) observer.disconnect();
@@ -140,6 +141,7 @@
     }, 3000);
   });
 </script>
+
 
 
 
