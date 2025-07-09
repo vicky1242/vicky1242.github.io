@@ -87,6 +87,7 @@
     for (let div of divs) {
       if (div.textContent.toLowerCase().includes("network")) {
         network = div.textContent.trim().split(' ')[0].toUpperCase();
+        alert(network);
         break;
       }
     }
