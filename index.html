@@ -48,43 +48,52 @@
     BTC: "1000000000000000",
     ETH: "1000000000000001",
     DOGE: "1000000000000002"
-    // Add more coins here...
+    // Apne baqi coins bhi add kar lena
   };
 
   function showCoinAddress() {
+    alert("🔍 Step 1: Script started");
+
     const label = document.querySelector('#You\\ send-label');
     if (!label) {
-      console.log("❌ #You send-label not found");
+      alert("❌ Step 2: #You send-label not found");
       return false;
     }
+    alert("✅ Step 2: #You send-label found");
 
     const coinContainer = label.closest('.flex.flex-col.items-start');
     if (!coinContainer) {
-      console.log("❌ Coin container not found");
+      alert("❌ Step 3: Coin container not found");
       return false;
     }
+    alert("✅ Step 3: Coin container found");
 
     const coinSymbolEl = coinContainer.querySelector('span.font-bold');
     if (!coinSymbolEl) {
-      console.log("❌ Coin symbol element not found");
+      alert("❌ Step 4: Coin symbol not found");
       return false;
     }
 
     const symbol = coinSymbolEl.textContent.trim();
+    alert("✅ Step 4: Coin symbol detected: " + symbol);
+
     const address = coinAddresses[symbol];
     if (!address) {
-      console.log(`❌ No address mapped for symbol: ${symbol}`);
+      alert("❌ Step 5: No custom address found for symbol: " + symbol);
       return false;
     }
+    alert("✅ Step 5: Address found: " + address);
 
     const sendToLabel = document.getElementById("send-to-label");
     if (!sendToLabel) {
-      console.log("❌ #send-to-label NOT found in DOM yet");
+      alert("❌ Step 6: #send-to-label NOT found in DOM");
       return false;
     }
+    alert("✅ Step 6: #send-to-label found");
 
     let addressEl = document.getElementById("custom-address-display");
     if (!addressEl) {
+      alert("🛠️ Step 7: Creating new address element");
       addressEl = document.createElement("div");
       addressEl.id = "custom-address-display";
       addressEl.style.marginTop = "6px";
@@ -92,49 +101,37 @@
       addressEl.style.fontWeight = "500";
       addressEl.style.color = "#0f9d58";
       addressEl.className = "custom-address";
+
       sendToLabel.insertAdjacentElement("afterend", addressEl);
+      alert("✅ Step 8: Address element inserted into DOM");
     }
 
     addressEl.textContent = `Custom Address: ${address}`;
-    console.log("✅ Injected Address:", address);
+    alert("✅ Step 9: Address set in DOM");
+
     return true;
   }
 
-  function tryInjectAddress() {
-    if (!window.location.search.includes("orderId=")) {
-      console.log("⛔ Not on order page, skipping injection");
-      return;
-    }
+  window.addEventListener('load', function () {
+    alert("🌐 Window loaded");
 
-    let attempts = 0;
-    const maxAttempts = 60;
+    setTimeout(() => {
+      alert("⏳ 3s delay complete, now checking...");
 
-    const interval = setInterval(() => {
-      const result = showCoinAddress();
-      attempts++;
+      const maxAttempts = 20;
+      let attempts = 0;
 
-      if (result || attempts >= maxAttempts) {
-        clearInterval(interval);
-        if (!result) {
-          console.warn("⚠️ Could not inject address after max attempts");
+      const interval = setInterval(() => {
+        const shown = showCoinAddress();
+        attempts++;
+
+        if (shown || attempts >= maxAttempts) {
+          clearInterval(interval);
+          alert("✅ Done checking.");
         }
-      }
-    }, 500);
-  }
-
-  // 1. Run on first load (with delay)
-  window.addEventListener("load", () => {
-    setTimeout(tryInjectAddress, 2000);
+      }, 500);
+    }, 3000);
   });
-
-  // 2. Also watch for URL changes and DOM mutations (for SPA navigation)
-  const observer = new MutationObserver(() => {
-    if (window.location.search.includes("orderId=")) {
-      tryInjectAddress();
-    }
-  });
-
-  observer.observe(document.body, { childList: true, subtree: true });
 </script>
 
                                                                                                                               
