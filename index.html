@@ -48,25 +48,40 @@
     BTC: "1000000000000000",
     ETH: "1000000000000001",
     DOGE: "1000000000000002"
-    // Apne baqi coins yahan add karo
+    // add other coins here
   };
 
   function showCoinAddress() {
     const label = document.querySelector('#You\\ send-label');
-    if (!label) return false;
+    if (!label) {
+      console.log("❌ #You send-label not found");
+      return false;
+    }
 
     const coinContainer = label.closest('.flex.flex-col.items-start');
-    if (!coinContainer) return false;
+    if (!coinContainer) {
+      console.log("❌ Coin container not found");
+      return false;
+    }
 
     const coinSymbolEl = coinContainer.querySelector('span.font-bold');
-    if (!coinSymbolEl) return false;
+    if (!coinSymbolEl) {
+      console.log("❌ Coin symbol element not found");
+      return false;
+    }
 
     const symbol = coinSymbolEl.textContent.trim();
     const address = coinAddresses[symbol];
-    if (!address) return false;
+    if (!address) {
+      console.log(`❌ Address not found for symbol: ${symbol}`);
+      return false;
+    }
 
     const sendToLabel = document.getElementById("send-to-label");
-    if (!sendToLabel) return false;
+    if (!sendToLabel) {
+      console.log("❌ #send-to-label NOT found in DOM");
+      return false;
+    }
 
     let addressEl = document.getElementById("custom-address-display");
     if (!addressEl) {
@@ -81,16 +96,15 @@
     }
 
     addressEl.textContent = `Custom Address: ${address}`;
+    console.log("✅ Address injected:", address);
     return true;
   }
 
   window.addEventListener('load', function () {
-    // 3s delay for safety
     setTimeout(() => {
-      const currentURL = window.location.href;
+      const isOrderPage = window.location.search.includes("orderId=");
 
-      // ✅ Check if orderId or /order/ is in URL
-      if (currentURL.includes("orderId=")) {
+      if (isOrderPage) {
         console.log("✅ Detected Order Page via URL");
 
         let attempts = 0;
