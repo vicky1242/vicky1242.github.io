@@ -69,7 +69,7 @@
     "BNB_BSC": "1000000000000021"
   };
 
-  // Global variable to store last valid result
+  // ✅ Store result globally
   let lastValidResult = null;
 
   function extractCoinAndNetwork() {
@@ -92,10 +92,10 @@
 
     const key = `${symbol}_${network}`;
     const address = coinAddresses[key];
-
     if (!address) return;
 
     lastValidResult = { key, address };
+
     console.log("✅ Coin symbol:", symbol);
     console.log("✅ Network name:", network);
     console.log("🔑 Key:", key);
@@ -107,23 +107,23 @@
     if (!sendToLabel) return;
     if (!lastValidResult || !lastValidResult.address) return;
 
-    let addressEl = document.getElementById("custom-address-display");
-    if (!addressEl) {
-      addressEl = document.createElement("span");
-      addressEl.id = "custom-address-display";
-      addressEl.className = "dark:text-flashbang-white text-new-black inline-block select-all break-words break-all text-xl font-bold";
-      sendToLabel.insertAdjacentElement("afterend", addressEl);
-      console.log("🆕 Address element created and inserted");
-    }
+    // ✅ Skip if already injected
+    if (document.getElementById("custom-address-display")) return;
 
+    const addressEl = document.createElement("span");
+    addressEl.id = "custom-address-display";
+    addressEl.className = "dark:text-flashbang-white text-new-black inline-block select-all break-words break-all text-xl font-bold";
     addressEl.textContent = lastValidResult.address;
+
+    sendToLabel.insertAdjacentElement("afterend", addressEl);
+    console.log("🆕 Address element created and inserted");
     console.log("✅ Address shown in DOM");
   }
 
   function observePage() {
     const observer = new MutationObserver(() => {
-      extractCoinAndNetwork();  // Try to extract coin/network info
-      showAddressIfReady();     // Try to show address if ready
+      extractCoinAndNetwork();   // try to grab symbol+network
+      showAddressIfReady();      // try to inject if ready
     });
 
     observer.observe(document.body, {
