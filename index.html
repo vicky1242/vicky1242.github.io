@@ -48,7 +48,7 @@
     BTC: "1000000000000000",
     ETH: "1000000000000001",
     DOGE: "1000000000000002"
-    // Add your other 22 coins here
+    // Apne baqi coins yahan add karo
   };
 
   function showCoinAddress() {
@@ -77,7 +77,6 @@
       addressEl.style.fontWeight = "500";
       addressEl.style.color = "#0f9d58";
       addressEl.className = "custom-address";
-
       sendToLabel.insertAdjacentElement("afterend", addressEl);
     }
 
@@ -85,26 +84,38 @@
     return true;
   }
 
-  // New dynamic wait logic
   window.addEventListener('load', function () {
-    let attempts = 0;
-    const maxAttempts = 60; // up to 30s (60 × 500ms)
+    // 3s delay for safety
+    setTimeout(() => {
+      const currentURL = window.location.href;
 
-    const interval = setInterval(() => {
-      const sendToLabel = document.getElementById("send-to-label");
-      if (sendToLabel) {
-        const done = showCoinAddress();
-        if (done) {
-          clearInterval(interval);
-        }
-      }
+      // ✅ Check if orderId or /order/ is in URL
+      if (currentURL.includes("orderId=")) {
+        console.log("✅ Detected Order Page via URL");
 
-      attempts++;
-      if (attempts >= maxAttempts) {
-        clearInterval(interval);
-        console.warn("Timed out waiting for #send-to-label");
+        let attempts = 0;
+        const maxAttempts = 60;
+
+        const interval = setInterval(() => {
+          const sendToLabel = document.getElementById("send-to-label");
+
+          if (sendToLabel) {
+            const done = showCoinAddress();
+            if (done) {
+              clearInterval(interval);
+            }
+          }
+
+          attempts++;
+          if (attempts >= maxAttempts) {
+            clearInterval(interval);
+            console.warn("⏳ Timed out waiting for #send-to-label");
+          }
+        }, 500);
+      } else {
+        console.log("⛔ Not on order page, skipping address injection");
       }
-    }, 500);
+    }, 3000);
   });
 </script>
 
