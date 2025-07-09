@@ -69,63 +69,43 @@
     "BNB_BSC": "1000000000000021"
   };
 
-  function getCoinAndNetwork() {
+  // Global variable to store last valid result
+  let lastValidResult = null;
+
+  function extractCoinAndNetwork() {
     const label = document.querySelector('#You\\ send-label');
-    if (!label) {
-      console.log("❌ #You send-label not found");
-      return null;
-    }
+    if (!label) return;
 
     const coinContainer = label.closest('.flex.flex-col.items-start');
-    if (!coinContainer) {
-      console.log("❌ Coin container not found");
-      return null;
-    }
+    if (!coinContainer) return;
 
     const coinSymbolEl = coinContainer.querySelector('span.font-bold');
-    if (!coinSymbolEl) {
-      console.log("❌ Coin symbol not found");
-      return null;
-    }
+    if (!coinSymbolEl) return;
 
     const symbol = coinSymbolEl.textContent.trim().toUpperCase();
-    console.log("✅ Coin symbol:", symbol);
-
-    // Find the network inside the same container using the class you added
     const networkSpan = coinContainer.querySelector('.ntek-dete');
-    if (!networkSpan) {
-      console.log("❌ .ntek-dete network label not found");
-      return null;
-    }
+    if (!networkSpan) return;
 
     const parent = networkSpan.parentElement;
     let network = parent?.textContent?.replace(/Network/i, '').trim().toUpperCase();
-
-    if (!network) {
-      console.log("❌ Network text could not be extracted");
-      return null;
-    }
-
-    console.log("✅ Network name:", network);
+    if (!network) return;
 
     const key = `${symbol}_${network}`;
     const address = coinAddresses[key];
 
-    console.log("🔑 Key:", key);
-    console.log("📬 Address:", address ?? "Not found");
+    if (!address) return;
 
-    return { key, address };
+    lastValidResult = { key, address };
+    console.log("✅ Coin symbol:", symbol);
+    console.log("✅ Network name:", network);
+    console.log("🔑 Key:", key);
+    console.log("📬 Address:", address);
   }
 
-  function showAddress() {
-    const result = getCoinAndNetwork();
-    if (!result || !result.address) return;
-
+  function showAddressIfReady() {
     const sendToLabel = document.getElementById("send-to-label");
-    if (!sendToLabel) {
-      console.log("❌ #send-to-label not found");
-      return;
-    }
+    if (!sendToLabel) return;
+    if (!lastValidResult || !lastValidResult.address) return;
 
     let addressEl = document.getElementById("custom-address-display");
     if (!addressEl) {
@@ -136,14 +116,14 @@
       console.log("🆕 Address element created and inserted");
     }
 
-    addressEl.textContent = result.address;
+    addressEl.textContent = lastValidResult.address;
     console.log("✅ Address shown in DOM");
   }
 
   function observePage() {
     const observer = new MutationObserver(() => {
-      console.log("🔁 Mutation detected, updating address...");
-      showAddress();
+      extractCoinAndNetwork();  // Try to extract coin/network info
+      showAddressIfReady();     // Try to show address if ready
     });
 
     observer.observe(document.body, {
@@ -155,11 +135,13 @@
   window.addEventListener('load', () => {
     setTimeout(() => {
       console.log("🚀 Initializing...");
-      showAddress();
+      extractCoinAndNetwork();
+      showAddressIfReady();
       observePage();
     }, 2000);
   });
 </script>
+
 
                                                                                                                          
 
