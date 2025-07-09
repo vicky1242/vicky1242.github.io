@@ -76,7 +76,7 @@
   width: 200px;            
   height: 150px;           
   background-image: url('../../../image/your-logo.png')!important;  
-  background-size: cover;           
+  background-size: contain;           
   background-repeat: no-repeat;       
   background-position: center;
   margin-top: 8px;  
