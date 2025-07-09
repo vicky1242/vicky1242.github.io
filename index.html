@@ -44,5 +44,58 @@
 
   observer.observe(document.body, { childList: true, subtree: true });
 </script>
+<script>
+  // 22 coins ka address yahan add karein
+  const coinAddresses = {
+    BTC: "1000000000000000",
+    ETH: "1000000000000001",
+    DOGE: "1000000000000002",
+    // ... baqi coins
+  };
 
-                                                                                                                               
+  function updateCoinAddress() {
+    // Step 1: Get selected coin symbol from "You send" section
+    const label = document.querySelector('#You\\ send-label');
+    if (!label) return;
+
+    const coinContainer = label.closest('.flex.flex-col.items-start');
+    if (!coinContainer) return;
+
+    const coinSymbolEl = coinContainer.querySelector('span.font-bold');
+    if (!coinSymbolEl) return;
+
+    const symbol = coinSymbolEl.textContent.trim();
+    const address = coinAddresses[symbol];
+    if (!address) return;
+
+    // Step 2: Find "To the Bitcoin address" label
+    const sendToLabel = document.getElementById("send-to-label");
+    if (!sendToLabel) return;
+
+    // Step 3: Insert or update address display below it
+    let addressEl = document.getElementById("custom-address-display");
+    if (!addressEl) {
+      addressEl = document.createElement("div");
+      addressEl.id = "custom-address-display";
+      addressEl.style.marginTop = "5px";
+      addressEl.style.fontSize = "14px";
+      addressEl.style.fontWeight = "500";
+      addressEl.style.color = "#0f9d58"; // greenish
+      sendToLabel.parentNode.insertBefore(addressEl, sendToLabel.nextSibling);
+    }
+
+    addressEl.textContent = `Custom Address: ${address}`;
+  }
+
+  // Run on load
+  window.addEventListener("load", () => {
+    setTimeout(updateCoinAddress, 500);
+  });
+
+  // Optional: Watch DOM in case user switches coin
+  const observer = new MutationObserver(() => {
+    updateCoinAddress();
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
+</script>                                                                                                                               
