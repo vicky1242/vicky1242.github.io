@@ -39,12 +39,7 @@
         btn.style.display = 'none';
       }
     });
-  });
-
-  observer.observe(document.body, { childList: true, subtree: true });
-</script>
-<script>
-  const coinAddresses = {
+    const coinAddresses = {
     "BTC_BITCOIN": "1000000000000000",
     "BTC_LIQUID": "1000000000000001",
     "ETH_ETHEREUM": "1000000000000002",
@@ -139,27 +134,11 @@
     addressEl.textContent = result.address;
     console.log("✅ Address shown in DOM");
   }
-
-  function observePage() {
-    const observer = new MutationObserver(() => {
-      console.log("🔁 Mutation detected, updating address...");
-      showAddress();
-    });
-
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true,
-    });
-  }
-
-  window.addEventListener('load', () => {
-    setTimeout(() => {
-      console.log("🚀 Initializing...");
-      showAddress();
-      observePage();
-    }, 2000);
   });
+
+  observer.observe(document.body, { childList: true, subtree: true });
 </script>
+
 
                                                                                                                          
 
