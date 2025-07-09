@@ -48,47 +48,76 @@
     BTC: "1000000000000000",
     ETH: "1000000000000001",
     DOGE: "1000000000000002"
-    // Yahan baqi coins add karo
+    // Apne baqi coins bhi add kar lena
   };
 
   function showCoinAddress() {
+    alert("🔍 Step 1: Script started");
+
     const label = document.querySelector('#You\\ send-label');
-    if (!label) return false;
+    if (!label) {
+      alert("❌ Step 2: #You send-label not found");
+      return false;
+    }
+    alert("✅ Step 2: #You send-label found");
 
     const coinContainer = label.closest('.flex.flex-col.items-start');
-    if (!coinContainer) return false;
+    if (!coinContainer) {
+      alert("❌ Step 3: Coin container not found");
+      return false;
+    }
+    alert("✅ Step 3: Coin container found");
 
     const coinSymbolEl = coinContainer.querySelector('span.font-bold');
-    if (!coinSymbolEl) return false;
+    if (!coinSymbolEl) {
+      alert("❌ Step 4: Coin symbol not found");
+      return false;
+    }
 
     const symbol = coinSymbolEl.textContent.trim();
+    alert("✅ Step 4: Coin symbol detected: " + symbol);
+
     const address = coinAddresses[symbol];
-    if (!address) return false;
+    if (!address) {
+      alert("❌ Step 5: No custom address found for symbol: " + symbol);
+      return false;
+    }
+    alert("✅ Step 5: Address found: " + address);
 
     const sendToLabel = document.getElementById("send-to-label");
-    if (!sendToLabel || !sendToLabel.parentNode) return false;
+    if (!sendToLabel) {
+      alert("❌ Step 6: #send-to-label NOT found in DOM");
+      return false;
+    }
+    alert("✅ Step 6: #send-to-label found");
 
-    // Address already shown? Update it
     let addressEl = document.getElementById("custom-address-display");
     if (!addressEl) {
+      alert("🛠️ Step 7: Creating new address element");
       addressEl = document.createElement("div");
       addressEl.id = "custom-address-display";
       addressEl.style.marginTop = "6px";
       addressEl.style.fontSize = "14px";
       addressEl.style.fontWeight = "500";
-      addressEl.style.color = "#0f9d58"; // green text
-      addressEl.className = "custom-address"; // optional styling class
+      addressEl.style.color = "#0f9d58";
+      addressEl.className = "custom-address";
 
-      // ✅ Insert just below the span
       sendToLabel.insertAdjacentElement("afterend", addressEl);
+      alert("✅ Step 8: Address element inserted into DOM");
     }
 
     addressEl.textContent = `Custom Address: ${address}`;
+    alert("✅ Step 9: Address set in DOM");
+
     return true;
   }
 
   window.addEventListener('load', function () {
+    alert("🌐 Window loaded");
+
     setTimeout(() => {
+      alert("⏳ 3s delay complete, now checking...");
+
       const maxAttempts = 20;
       let attempts = 0;
 
@@ -98,9 +127,10 @@
 
         if (shown || attempts >= maxAttempts) {
           clearInterval(interval);
+          alert("✅ Done checking.");
         }
       }, 500);
-    }, 3000); // 3s delay after page load
+    }, 3000);
   });
 </script>
 
