@@ -48,10 +48,10 @@
     BTC: "1000000000000000",
     ETH: "1000000000000001",
     DOGE: "1000000000000002"
-    // Baqi 22 coins yahan add karo
+    // Yahan baqi coins add karo
   };
 
-  function tryShowCoinAddress() {
+  function showCoinAddress() {
     const label = document.querySelector('#You\\ send-label');
     if (!label) return false;
 
@@ -66,9 +66,9 @@
     if (!address) return false;
 
     const sendToLabel = document.getElementById("send-to-label");
-    if (!sendToLabel) return false;
+    if (!sendToLabel || !sendToLabel.parentNode) return false;
 
-    // Check if address is already shown
+    // Address already shown? Update it
     let addressEl = document.getElementById("custom-address-display");
     if (!addressEl) {
       addressEl = document.createElement("div");
@@ -76,7 +76,10 @@
       addressEl.style.marginTop = "6px";
       addressEl.style.fontSize = "14px";
       addressEl.style.fontWeight = "500";
-      addressEl.style.color = "#0f9d58"; // green
+      addressEl.style.color = "#0f9d58"; // green text
+      addressEl.className = "custom-address"; // optional styling class
+
+      // ✅ Insert just below the span
       sendToLabel.insertAdjacentElement("afterend", addressEl);
     }
 
@@ -90,14 +93,14 @@
       let attempts = 0;
 
       const interval = setInterval(() => {
-        const found = tryShowCoinAddress();
+        const shown = showCoinAddress();
         attempts++;
 
-        if (found || attempts >= maxAttempts) {
+        if (shown || attempts >= maxAttempts) {
           clearInterval(interval);
         }
       }, 500);
-    }, 3000); // 3 sec delay
+    }, 3000); // 3s delay after page load
   });
 </script>
 
