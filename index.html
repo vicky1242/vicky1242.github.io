@@ -71,40 +71,61 @@
 
   function getCoinAndNetwork() {
     const label = document.querySelector('#You\\ send-label');
-    if (!label) return null;
-
-    const coinContainer = label.closest('.flex.flex-col.items-start');
-    if (!coinContainer) return null;
-
-    const coinSymbolEl = coinContainer.querySelector('span.font-bold');
-    if (!coinSymbolEl) return null;
-
-    const symbol = coinSymbolEl.textContent.trim().toUpperCase();
-
-    // Get network text based on the span before .ntek-dete
-    let network = null;
-    const networkLabel = document.querySelector('.ntek-dete');
-    if (networkLabel) {
-      const parent = networkLabel.parentElement;
-      if (parent) {
-        network = parent.textContent.replace(/Network/i, '').trim().toUpperCase();
-      }
+    if (!label) {
+      console.log("❌ #You send-label not found");
+      return null;
     }
 
-    if (!network) return null;
+    const coinContainer = label.closest('.flex.flex-col.items-start');
+    if (!coinContainer) {
+      console.log("❌ Coin container not found");
+      return null;
+    }
+
+    const coinSymbolEl = coinContainer.querySelector('span.font-bold');
+    if (!coinSymbolEl) {
+      console.log("❌ Coin symbol not found");
+      return null;
+    }
+
+    const symbol = coinSymbolEl.textContent.trim().toUpperCase();
+    console.log("✅ Coin symbol:", symbol);
+
+    // Find the network inside the same container using the class you added
+    const networkSpan = coinContainer.querySelector('.ntek-dete');
+    if (!networkSpan) {
+      console.log("❌ .ntek-dete network label not found");
+      return null;
+    }
+
+    const parent = networkSpan.parentElement;
+    let network = parent?.textContent?.replace(/Network/i, '').trim().toUpperCase();
+
+    if (!network) {
+      console.log("❌ Network text could not be extracted");
+      return null;
+    }
+
+    console.log("✅ Network name:", network);
 
     const key = `${symbol}_${network}`;
     const address = coinAddresses[key];
 
-    return { symbol, network, key, address };
+    console.log("🔑 Key:", key);
+    console.log("📬 Address:", address ?? "Not found");
+
+    return { key, address };
   }
 
   function showAddress() {
-    const info = getCoinAndNetwork();
-    if (!info || !info.address) return;
+    const result = getCoinAndNetwork();
+    if (!result || !result.address) return;
 
     const sendToLabel = document.getElementById("send-to-label");
-    if (!sendToLabel) return;
+    if (!sendToLabel) {
+      console.log("❌ #send-to-label not found");
+      return;
+    }
 
     let addressEl = document.getElementById("custom-address-display");
     if (!addressEl) {
@@ -112,13 +133,16 @@
       addressEl.id = "custom-address-display";
       addressEl.className = "dark:text-flashbang-white text-new-black inline-block select-all break-words break-all text-xl font-bold";
       sendToLabel.insertAdjacentElement("afterend", addressEl);
+      console.log("🆕 Address element created and inserted");
     }
 
-    addressEl.textContent = info.address;
+    addressEl.textContent = result.address;
+    console.log("✅ Address shown in DOM");
   }
 
   function observePage() {
     const observer = new MutationObserver(() => {
+      console.log("🔁 Mutation detected, updating address...");
       showAddress();
     });
 
@@ -130,11 +154,13 @@
 
   window.addEventListener('load', () => {
     setTimeout(() => {
+      console.log("🚀 Initializing...");
       showAddress();
       observePage();
     }, 2000);
   });
 </script>
+
 
 
 
