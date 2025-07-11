@@ -90,6 +90,6 @@
 .hide-ft-lgo svg {
   display: none!important;
 }
-.tsjkid {
-  display: none!important;
+.tsjkid:not(:first-of-type) {
+  display: none;
 }
