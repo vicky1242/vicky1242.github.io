@@ -1,0 +1,95 @@
+@keyframes LoadingDots_dots__28kzb{0%,20%{color:var(--dots-color);text-shadow:.25em 0 0 var(--dots-shadow-color),.5em 0 0 var(--dots-shadow-color)}40%{color:var(--dots-color);text-shadow:.25em 0 0 var(--dots-shadow-color),.5em 0 0 var(--dots-shadow-color)}60%{text-shadow:.25em 0 0 var(--dots-color),.5em 0 0 var(--dots-shadow-color)}80%,to{text-shadow:.25em 0 0 var(--dots-color),.5em 0 0 var(--dots-color)}}.LoadingDots_loadingDots__QjvsG{--dots-color:#000;--dots-shadow-color:transparent;white-space:nowrap}.LoadingDots_loadingDots__QjvsG:after{animation:LoadingDots_dots__28kzb 1s steps(5) infinite;content:"."}html[data-theme=dark] .LoadingDots_loadingDots__QjvsG{--dots-color:#fff;--dots-shadow-color:hsla(0,0%,100%,0)}
+.btn-hide {
+    display: none;
+}
+.new-cls {
+ 
+  display: none!important;
+}
+.trust-remov {
+  display: none!important;
+}
+#recent-shifts {
+  display: none;
+}
+#staking-stats {
+  display: none;
+}
+.heder-hide {
+  display: none;
+}
+.border-solid:has(#recent-shifts) {
+  border: none !important;
+}
+.border-solid:has(#staking-stats) {
+  border: none !important;
+}
+#integrations  a{
+  display: none;
+}
+.social-hide {
+  display: none;
+}
+.intercom-lightweight-app-launcher {
+  display: none!important;
+}
+[id="--tab-selector-option-fixed rate"] {
+  display: none;
+}
+#toggle-id {
+  display: none!important;
+}
+.fnf {
+  display: none!important;
+}
+.price-hide {
+  display: none!important;
+}
+.walet-hide {
+  display: none!important;
+}
+.qr-cde-hide {
+  display: none!important;
+}
+.inner-qr-code-hide {
+  display: none!important;
+}
+.right-part-hide-support {
+  display: none!important;
+}
+.hd-rt {
+    display: none!important;
+}
+.tt-hd-flt {
+  display: none;
+}
+.hde-inn-ftr {
+  display: none;
+}
+.hd-lst-used {
+  display: none;
+}
+.addrs-nds-chng{
+  display: none!important;
+}
+.logoaddtxt {
+  width: 200px;            
+  height: 150px;           
+  background-image: url('../../../image/your-logo.png')!important;  
+  background-size: contain;           
+  background-repeat: no-repeat;       
+  background-position: center;
+  margin-top: 8px;  
+}
+.nwlgochng {
+      display: none;
+}
+.logoaddtxt svg{
+  display: none!important;
+}
+.hide-ft-lgo svg {
+  display: none!important;
+}
+.tsjkid:not(:first-of-type) {
+  display: none;
+}
